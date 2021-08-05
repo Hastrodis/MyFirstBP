@@ -3,7 +3,8 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Abp.Domain.Entities;
 
-namespace MyFirstBP.Events
+
+namespace MyFirstBP.EventsEnt
 {
     public class DateOfWeek
     {
@@ -15,7 +16,7 @@ namespace MyFirstBP.Events
         public int EventID { get; set; }
 
         [ForeignKey("EventID")]
-        public Event Event { get; set; }
+        public EventTab Event { get; set; }
 
 
     }

@@ -3,7 +3,7 @@ using Abp.Zero.EntityFrameworkCore;
 using MyFirstBP.Authorization.Roles;
 using MyFirstBP.Authorization.Users;
 using MyFirstBP.MultiTenancy;
-using MyFirstBP.Events;
+using MyFirstBP.EventsEnt;
 
 namespace MyFirstBP.EntityFrameworkCore
 {
@@ -11,7 +11,7 @@ namespace MyFirstBP.EntityFrameworkCore
     {
         /* Define a DbSet for each entity of the application */
         public DbSet<EventType> EventType { get; set; }
-        public DbSet<Event> Events { get; set; }
+        public DbSet<EventTab> Events { get; set; }
         public DbSet<DateOfWeek> DateOfWeeks { get; set; }
 
         public MyFirstBPDbContext(DbContextOptions<MyFirstBPDbContext> options)

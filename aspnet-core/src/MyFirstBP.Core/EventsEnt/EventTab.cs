@@ -4,10 +4,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Abp.Domain.Entities;
 using Abp.Domain.Entities.Auditing;
 
-namespace MyFirstBP.Events
+namespace MyFirstBP.EventsEnt
 {
     [Table("Events")]
-    public class Event : Entity
+    public class EventTab : Entity
     {
         [Key]
         public int EventID { get; set; }
