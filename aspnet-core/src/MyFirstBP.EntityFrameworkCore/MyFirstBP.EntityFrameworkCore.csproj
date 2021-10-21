@@ -27,4 +27,7 @@
   <ItemGroup>
     <ProjectReference Include="..\MyFirstBP.Core\MyFirstBP.Core.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
 </Project>

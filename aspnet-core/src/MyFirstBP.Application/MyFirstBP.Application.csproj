@@ -16,4 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\MyFirstBP.Core\MyFirstBP.Core.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DateOfWeeks\Dto\" />
+  </ItemGroup>
 </Project>

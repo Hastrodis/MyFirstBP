@@ -9,8 +9,8 @@ using MyFirstBP.EntityFrameworkCore;
 namespace MyFirstBP.Migrations
 {
     [DbContext(typeof(MyFirstBPDbContext))]
-    [Migration("20210705033823_First")]
-    partial class First
+    [Migration("20211021114356_FirstNew")]
+    partial class FirstNew
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -1483,7 +1483,7 @@ namespace MyFirstBP.Migrations
                     b.ToTable("AbpUsers");
                 });
 
-            modelBuilder.Entity("MyFirstBP.Events.DateOfWeek", b =>
+            modelBuilder.Entity("MyFirstBP.EventsEnt.DateOfWeek", b =>
                 {
                     b.Property<int>("WeekID")
                         .ValueGeneratedOnAdd()
@@ -1502,7 +1502,7 @@ namespace MyFirstBP.Migrations
                     b.ToTable("DateOfWeeks");
                 });
 
-            modelBuilder.Entity("MyFirstBP.Events.Event", b =>
+            modelBuilder.Entity("MyFirstBP.EventsEnt.EventTab", b =>
                 {
                     b.Property<int>("EventID")
                         .ValueGeneratedOnAdd()
@@ -1534,7 +1534,7 @@ namespace MyFirstBP.Migrations
                     b.ToTable("Events");
                 });
 
-            modelBuilder.Entity("MyFirstBP.Events.EventType", b =>
+            modelBuilder.Entity("MyFirstBP.EventsEnt.EventType", b =>
                 {
                     b.Property<int>("EvTypeID")
                         .ValueGeneratedOnAdd()
@@ -1810,18 +1810,18 @@ namespace MyFirstBP.Migrations
                         .HasForeignKey("LastModifierUserId");
                 });
 
-            modelBuilder.Entity("MyFirstBP.Events.DateOfWeek", b =>
+            modelBuilder.Entity("MyFirstBP.EventsEnt.DateOfWeek", b =>
                 {
-                    b.HasOne("MyFirstBP.Events.Event", "Event")
+                    b.HasOne("MyFirstBP.EventsEnt.EventTab", "Event")
                         .WithMany()
                         .HasForeignKey("EventID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MyFirstBP.Events.Event", b =>
+            modelBuilder.Entity("MyFirstBP.EventsEnt.EventTab", b =>
                 {
-                    b.HasOne("MyFirstBP.Events.EventType", "EventType")
+                    b.HasOne("MyFirstBP.EventsEnt.EventType", "EventType")
                         .WithMany()
                         .HasForeignKey("EvTypeID")
                         .OnDelete(DeleteBehavior.Cascade)

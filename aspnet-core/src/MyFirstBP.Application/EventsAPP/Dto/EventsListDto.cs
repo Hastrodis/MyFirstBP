@@ -1,5 +1,4 @@
 ﻿using Abp.AutoMapper;
-using System;
 using MyFirstBP.EventsEnt;
 using Abp.Application.Services.Dto;
 
