@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using MyFirstBP.EventsEnt;
 using MyFirstBP.EventsAPP.Dto;
 using Abp.Application.Services;
+using Abp.Collections.Extensions;
+using Abp.Linq.Extensions;
 
 namespace MyFirstBP.EventsAPP
 {
@@ -22,6 +24,8 @@ namespace MyFirstBP.EventsAPP
         {
             var events = await _eventRepository
                 .GetAll()
+                //.WhereIf(t => t.Title != null)
+
                 .ToListAsync();
 
             return new ListResultDto<EventsListDto>(

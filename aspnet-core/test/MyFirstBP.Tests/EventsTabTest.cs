@@ -4,9 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
+
 namespace MyFirstBP.Tests
 {
-    class EventsTabTest
+    public class EventsTabTest
     {
         private readonly MyFirstBPDbContext _context;
 
@@ -18,7 +19,7 @@ namespace MyFirstBP.Tests
         public void Build()
         {
             _context.Events.AddRange(
-                new EventTab { Title = "First Events", Description = "Test Events" }
+                new EventTab { EventID = 2, Title = "First Events", Description = "Test Events", EvTypeID = 1 }
                 );
         }
 
