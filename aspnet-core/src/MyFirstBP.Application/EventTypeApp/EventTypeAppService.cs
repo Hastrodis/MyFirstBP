@@ -9,16 +9,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MyFirstBP.EventTypeApp
 {
-    class EventTypeAppService : ApplicationService, IEventTypeService
+    public class EventTypeAppService : CrudAppService<EventType, EventTypeListDto> 
     {
-        private readonly IRepository<EventType> _evenTypetRepository;
+        //private readonly IRepository<EventType> _evenTypetRepository;
 
-        public EventTypeAppService(IRepository<EventType> eventTypeRepository)
+        public EventTypeAppService(IRepository<EventType> repository) :base(repository)
         {
-            _evenTypetRepository = eventTypeRepository;
+            //_evenTypetRepository = eventTypeRepository;
         }
 
-        public async Task<ListResultDto<EventTypeListDto>> GetAll(GetAllEventTypeInput input)
+        /*public async Task<ListResultDto<EventTypeListDto>> GetAll(GetAllEventTypeInput input)
         {
             var events = await _evenTypetRepository
                 .GetAll()
@@ -27,6 +27,6 @@ namespace MyFirstBP.EventTypeApp
             return new ListResultDto<EventTypeListDto>(
                 ObjectMapper.Map<List<EventTypeListDto>>(events)
                 );
-        }
+        }*/
     }
 }

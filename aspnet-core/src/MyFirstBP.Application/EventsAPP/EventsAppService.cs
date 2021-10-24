@@ -11,26 +11,24 @@ using Abp.Linq.Extensions;
 
 namespace MyFirstBP.EventsAPP
 {
-    public class EventsAppService : MyFirstBPAppServiceBase, IEventsAppService
+    public class EventsAppService : CrudAppService<EventTab, EventsListDto>
     {
-        private readonly IRepository<EventTab> _eventRepository;
+        //private readonly IRepository<EventTab> _eventRepository;
 
-        public EventsAppService (IRepository<EventTab> eventRepository)
+        public EventsAppService (IRepository<EventTab> repository) : base(repository)
         {
-            _eventRepository = eventRepository;
+            //_eventRepository = eventRepository;
         }
 
-        public async Task<ListResultDto<EventsListDto>> GetAll(GetAllTitleInput input)
+       /* public async Task<ListResultDto<EventsListDto>> GetAll(GetAllTitleInput input)
         {
             var events = await _eventRepository
                 .GetAll()
-                //.WhereIf(t => t.Title != null)
-
-                .ToListAsync();
+                 .ToListAsync();
 
             return new ListResultDto<EventsListDto>(
                 ObjectMapper.Map<List<EventsListDto>>(events)
                 );
-        }
+        }*/
     }
 }
