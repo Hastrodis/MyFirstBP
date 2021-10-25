@@ -6,19 +6,14 @@ using Abp.Domain.Entities;
 
 namespace MyFirstBP.EventsEnt
 {
-    public class DateOfWeek
+    public class DateOfWeek: Entity
     {
-        [Key]
-        public int WeekID { get; set; }
-
         public SWeek WeekName { get; set; }
 
         public int EventID { get; set; }
-
         [ForeignKey("EventID")]
+
         public EventTab Event { get; set; }
-
-
     }
     public enum SWeek : byte
     {

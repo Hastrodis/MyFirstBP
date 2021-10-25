@@ -7,10 +7,7 @@ namespace MyFirstBP.EventsEnt
 {
     public class EventType : Entity
     {
-        [Key]
-        public int EvTypeID { get; set; }
-
-        [StringLength(256)]
+        [Required,StringLength(256)]
         public string TypeName { get; set; }
     }
 }

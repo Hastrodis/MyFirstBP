@@ -19,7 +19,7 @@ namespace MyFirstBP.Tests
         public void Build()
         {
             _context.Events.AddRange(
-                new EventTab { EventID = 2, Title = "First Events", Description = "Test Events", EvTypeID = 1 }
+                new EventTab {Title = "First Events", Description = "Test Events", EvTypeID = 1 }
                 );
         }
 

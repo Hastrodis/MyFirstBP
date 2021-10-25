@@ -9,9 +9,6 @@ namespace MyFirstBP.EventsEnt
     [Table("Events")]
     public class EventTab : Entity
     {
-        [Key]
-        public int EventID { get; set; }
-
         [Required]
         [StringLength(256)]
         public string Title { get; set; }

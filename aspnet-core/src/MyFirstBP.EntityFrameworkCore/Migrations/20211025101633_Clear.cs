@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MyFirstBP.Migrations
 {
-    public partial class FirstNew : Migration
+    public partial class Clear : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -447,14 +447,13 @@ namespace MyFirstBP.Migrations
                 name: "EventType",
                 columns: table => new
                 {
-                    EvTypeID = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Id = table.Column<int>(nullable: false),
-                    TypeName = table.Column<string>(maxLength: 256, nullable: true)
+                    TypeName = table.Column<string>(maxLength: 256, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EventType", x => x.EvTypeID);
+                    table.PrimaryKey("PK_EventType", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -788,9 +787,8 @@ namespace MyFirstBP.Migrations
                 name: "Events",
                 columns: table => new
                 {
-                    EventID = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Id = table.Column<int>(nullable: false),
                     Title = table.Column<string>(maxLength: 256, nullable: false),
                     Description = table.Column<string>(maxLength: 65536, nullable: true),
                     Picture = table.Column<string>(maxLength: 65536, nullable: true),
@@ -798,12 +796,12 @@ namespace MyFirstBP.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Events", x => x.EventID);
+                    table.PrimaryKey("PK_Events", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Events_EventType_EvTypeID",
                         column: x => x.EvTypeID,
                         principalTable: "EventType",
-                        principalColumn: "EvTypeID",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -913,19 +911,19 @@ namespace MyFirstBP.Migrations
                 name: "DateOfWeeks",
                 columns: table => new
                 {
-                    WeekID = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     WeekName = table.Column<byte>(nullable: false),
                     EventID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DateOfWeeks", x => x.WeekID);
+                    table.PrimaryKey("PK_DateOfWeeks", x => x.Id);
                     table.ForeignKey(
                         name: "FK_DateOfWeeks_Events_EventID",
                         column: x => x.EventID,
                         principalTable: "Events",
-                        principalColumn: "EventID",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 

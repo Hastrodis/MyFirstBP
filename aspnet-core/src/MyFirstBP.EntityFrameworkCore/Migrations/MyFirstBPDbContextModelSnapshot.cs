@@ -1483,7 +1483,7 @@ namespace MyFirstBP.Migrations
 
             modelBuilder.Entity("MyFirstBP.EventsEnt.DateOfWeek", b =>
                 {
-                    b.Property<int>("WeekID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
@@ -1493,7 +1493,7 @@ namespace MyFirstBP.Migrations
                     b.Property<byte>("WeekName")
                         .HasColumnType("tinyint unsigned");
 
-                    b.HasKey("WeekID");
+                    b.HasKey("Id");
 
                     b.HasIndex("EventID");
 
@@ -1502,7 +1502,7 @@ namespace MyFirstBP.Migrations
 
             modelBuilder.Entity("MyFirstBP.EventsEnt.EventTab", b =>
                 {
-                    b.Property<int>("EventID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
@@ -1511,9 +1511,6 @@ namespace MyFirstBP.Migrations
                         .HasMaxLength(65536);
 
                     b.Property<int>("EvTypeID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Id")
                         .HasColumnType("int");
 
                     b.Property<string>("Picture")
@@ -1525,7 +1522,7 @@ namespace MyFirstBP.Migrations
                         .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
                         .HasMaxLength(256);
 
-                    b.HasKey("EventID");
+                    b.HasKey("Id");
 
                     b.HasIndex("EvTypeID");
 
@@ -1534,18 +1531,16 @@ namespace MyFirstBP.Migrations
 
             modelBuilder.Entity("MyFirstBP.EventsEnt.EventType", b =>
                 {
-                    b.Property<int>("EvTypeID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
                     b.Property<string>("TypeName")
+                        .IsRequired()
                         .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
                         .HasMaxLength(256);
 
-                    b.HasKey("EvTypeID");
+                    b.HasKey("Id");
 
                     b.ToTable("EventType");
                 });
