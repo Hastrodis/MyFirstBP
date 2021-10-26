@@ -7,3 +7,4 @@ bin/
 aspnet-core/src/MyFirstBP.Web.Host/App_Data/Logs/
 aspnet-core/src/MyFirstBP.Web.Mvc/App_Data/Logs/
 aspnet-core/src/MyFirstBP.Migrator/Logs/Logs.txt
+reactjs/node_modules/
