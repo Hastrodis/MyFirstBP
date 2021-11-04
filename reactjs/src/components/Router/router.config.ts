@@ -20,18 +20,18 @@ export const userRouter: any = [
 
 export const appRouters: any = [
   {
-    path: '/',
+    path: '/admin',
     exact: true,
-    name: 'home',
+    name: 'admin',
     permission: '',
-    title: 'Home',
+    title: 'Admin Panel',
     icon: 'home',
     component: LoadableComponent(() => import('../../components/Layout/AppLayout')),
     isLayout: true,
     showInMenu: false,
   },
   {
-    path: '/dashboard',
+    path: '/admin/dashboard',
     name: 'dashboard',
     permission: '',
     title: 'Dashboard',
@@ -40,7 +40,7 @@ export const appRouters: any = [
     component: LoadableComponent(() => import('../../scenes/Dashboard')),
   },
   {
-    path: '/users',
+    path: '/admin/users',
     permission: 'Pages.Users',
     title: 'Users',
     name: 'user',
@@ -49,7 +49,7 @@ export const appRouters: any = [
     component: LoadableComponent(() => import('../../scenes/Users')),
   },
   {
-    path: '/roles',
+    path: '/admin/roles',
     permission: 'Pages.Roles',
     title: 'Roles',
     name: 'role',
@@ -58,7 +58,7 @@ export const appRouters: any = [
     component: LoadableComponent(() => import('../../scenes/Roles')),
   },
   {
-    path: '/tenants',
+    path: '/admin/tenants',
     permission: 'Pages.Tenants',
     title: 'Tenants',
     name: 'tenant',
@@ -67,7 +67,7 @@ export const appRouters: any = [
     component: LoadableComponent(() => import('../../scenes/Tenants')),
   },
   {
-    path: '/about',
+    path: '/admin/about',
     permission: '',
     title: 'About',
     name: 'about',
@@ -76,7 +76,7 @@ export const appRouters: any = [
     component: LoadableComponent(() => import('../../scenes/About')),
   },
   {
-    path: '/logout',
+    path: '/admin/logout',
     permission: '',
     title: 'Logout',
     name: 'logout',
@@ -85,7 +85,7 @@ export const appRouters: any = [
     component: LoadableComponent(() => import('../../components/Logout')),
   },
   {
-    path: '/exception?:type',
+    path: '/admin/exception?:type',
     permission: '',
     title: 'exception',
     name: 'exception',
@@ -95,4 +95,15 @@ export const appRouters: any = [
   },
 ];
 
-export const routers = [...userRouter, ...appRouters];
+export const eventsRouter: any = [
+  {
+    path: '/',
+    name: 'events',
+    title: 'Events List',
+    component: LoadableComponent(() => import('../../components/Layout/UserLayout')), //('../../components/Layout/EventsLayout')),
+    isLayout: true,
+    showInMenu: false,
+  },
+]
+
+export const routers = [...userRouter, ...appRouters, ...eventsRouter];
