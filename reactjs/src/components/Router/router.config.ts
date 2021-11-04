@@ -100,10 +100,17 @@ export const eventsRouter: any = [
     path: '/',
     name: 'events',
     title: 'Events List',
-    component: LoadableComponent(() => import('../../components/Layout/UserLayout')), //('../../components/Layout/EventsLayout')),
+    component: LoadableComponent(() => import('../../components/Layout/EventsLayout')),
     isLayout: true,
     showInMenu: false,
   },
-]
+  /*{
+    path: '/eventtype',
+    permission: '',
+    title: 'Events Type',
+    component: LoadableComponent(() => import('../../scenes/EventType') )
+  },*/
+];
 
 export const routers = [...userRouter, ...appRouters, ...eventsRouter];
+
