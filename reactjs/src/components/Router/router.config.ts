@@ -104,12 +104,12 @@ export const eventsRouter: any = [
     isLayout: true,
     showInMenu: false,
   },
-  /*{
+  {
     path: '/eventtype',
     permission: '',
     title: 'Events Type',
     component: LoadableComponent(() => import('../../scenes/EventType') )
-  },*/
+  },
 ];
 
 export const routers = [...userRouter, ...appRouters, ...eventsRouter];
