@@ -9,7 +9,7 @@ import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import { Layout } from 'antd';
 import ProtectedRoute from '../../components/Router/ProtectedRoute';
-import SiderMenu from '../../components/SiderMenu';
+import EventSiderMenu from '../../components/EventSiderMenu';
 import { eventsRouter } from '../Router/router.config';
 import NotFoundRoute from '../Router/NotFoundRoute';
 
@@ -42,15 +42,15 @@ class EventsLayout extends React.Component<any> {
         const { collapsed } = this.state;
     
         const layout = (
-          <Layout style={{ minHeight: '100vh' }}>
-            <SiderMenu path={path} onCollapse={this.onCollapse} history={history} collapsed={collapsed} />
+          <Layout style={{ background: '#fff', minHeight: '100vh' }}>
+            <EventSiderMenu path={path} onCollapse={this.onCollapse} history={history} collapsed={collapsed} />
             <Layout>
                 <Layout.Header style={{ background: '#fff', minHeight: 52, padding: 0 }}>
                     <Header collapsed={this.state.collapsed} toggle={this.toggle} />
                 </Layout.Header>
                 <Content style={{ margin: 16 }}>
                     <Switch>
-                    {pathname === '/' && <Redirect from="/" to="/eventtype" />}
+                    {pathname === '/' && <Redirect from="/" to="/" />}
                     {eventsRouter
                         .filter((item: any) => !item.isLayout)
                         .map((route: any, index: any) => (

@@ -3,10 +3,10 @@ import { action, observable } from 'mobx';
 
 import { PagedResultDto } from '../services/dto/pagedResultDto';
 import { getAllEventTypeOutput } from '../services/eventType/dto/getAllEventTypeOutput';
-import { PagedEventTypeResultRequestDto } from '../services/eventType/dto/PagedEventTypeResultRequestDTO';
+import { PagedEventTypeResultRequestDto } from '../services/eventType/dto/pagedEventTypeResultRequestDto';
 import eventTypeService from '../services/eventType/eventTypeService';
 
-class EventSrote {
+class EventTypeStore {
     @observable eventType!: PagedResultDto<getAllEventTypeOutput>
 
     @action
@@ -16,4 +16,4 @@ class EventSrote {
     }
 }
 
-export default EventSrote;
+export default EventTypeStore;

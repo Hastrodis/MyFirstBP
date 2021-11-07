@@ -1,5 +1,5 @@
 import http from "../httpService";
-import { PagedEventTypeResultRequestDto } from './dto/PagedEventTypeResultRequestDTO';
+import { PagedEventTypeResultRequestDto } from './dto/pagedEventTypeResultRequestDto';
 import { getAllEventTypeOutput } from './dto/getAllEventTypeOutput';
 import { PagedResultDto } from '../dto/pagedResultDto';
 

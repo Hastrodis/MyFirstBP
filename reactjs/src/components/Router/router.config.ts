@@ -98,7 +98,9 @@ export const appRouters: any = [
 export const eventsRouter: any = [
   {
     path: '/',
+    exact: true,
     name: 'events',
+    permission: '',
     title: 'Events List',
     component: LoadableComponent(() => import('../../components/Layout/EventsLayout')),
     isLayout: true,
@@ -108,7 +110,10 @@ export const eventsRouter: any = [
     path: '/eventtype',
     permission: '',
     title: 'Events Type',
-    component: LoadableComponent(() => import('../../scenes/EventType') )
+    name: 'eventtype',
+    icon: 'info-circle',
+    showInMenu: true,
+    component: LoadableComponent(() => import('../../scenes/EventType')),
   },
 ];
 
