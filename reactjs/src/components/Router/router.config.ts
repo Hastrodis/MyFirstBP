@@ -94,7 +94,6 @@ export const appRouters: any = [
     component: LoadableComponent(() => import('../../scenes/Exception')),
   },
 ];
-
 export const eventsRouter: any = [
   {
     path: '/',

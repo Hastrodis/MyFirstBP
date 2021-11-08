@@ -50,18 +50,18 @@ class EventsLayout extends React.Component<any> {
                 </Layout.Header>
                 <Content style={{ margin: 16 }}>
                     <Switch>
-                    {pathname === '/' && <Redirect from="/" to="/" />}
-                    {eventsRouter
-                        .filter((item: any) => !item.isLayout)
-                        .map((route: any, index: any) => (
-                        <Route
-                            exact
-                            key={index}
-                            path={route.path}
-                            render={props => <ProtectedRoute component={route.component} permission={route.permission} />}
-                        />
-                        ))}
-                    {pathname !== '/' && <NotFoundRoute />}
+                        {pathname === '/' && <Redirect from="/" to="/eventtype" />}
+                            {eventsRouter
+                                .filter((item: any) => !item.isLayout)
+                                .map((route: any, index: any) => (
+                                <Route
+                                    exact
+                                    key={index}
+                                    path={route.path}
+                                    render={props => <ProtectedRoute component={route.component} permission={route.permission} />}
+                                />
+                                ))}
+                        {pathname !== '/' && <NotFoundRoute />}
                     </Switch>
                 </Content>
                 <Layout.Footer style={{ textAlign: 'center' }}>

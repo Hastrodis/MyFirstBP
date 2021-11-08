@@ -18,7 +18,7 @@ export interface IHeaderProps {
 const userDropdownMenu = (
   <Menu>
     <Menu.Item key="2">
-      <Link to="/logout">
+      <Link to="/admin/logout">
         <Icon type="logout" />
         <span> {L('Logout')}</span>
       </Link>
