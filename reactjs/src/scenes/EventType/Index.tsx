@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { inject, observer } from 'mobx-react';
 
-import { Button, Card, Col, Dropdown,  Menu, Row, Modal, Table } from 'antd';
+import { Button, Card, Col, Dropdown, Input, Menu, Row, Modal, Table } from 'antd';
 
 import AppComponentBase from '../../components/AppComponentBase';
 import { FormComponentProps } from 'antd/lib/form';
@@ -10,6 +10,7 @@ import { EntityDto } from '../../services/dto/entityDto';
 import { L } from '../../lib/abpUtility';
 import EventTypeStore from '../../stores/eventTypeStore';
 import Stores from '../../stores/storeIdentifier';
+import CreateOrUpdateEventType from './components/createOrUpdateEventType';
 
 
 
@@ -21,11 +22,12 @@ export interface IEventTypeState {
     modalVisible: boolean;
     maxResultCount: number;
     skipCount: number;
-    roleId: number;
+    eventTypeId: number;
     filter: string;
 }
 
 const confirm = Modal.confirm;
+const Search = Input.Search;
 
 @inject(Stores.EventTypeStore)
 @observer
@@ -37,7 +39,7 @@ class EventType extends AppComponentBase<IEventTypeProps, IEventTypeState> {
       modalVisible: false,
       maxResultCount: 10,
       skipCount: 0,
-      roleId: 0,
+      eventTypeId: 0,
       filter: '',
     };
   
@@ -59,23 +61,24 @@ class EventType extends AppComponentBase<IEventTypeProps, IEventTypeState> {
       });
     };
   
-  /*  async createOrUpdateModalOpen(entityDto: EntityDto) {
+    async createOrUpdateModalOpen(entityDto: EntityDto) {
       if (entityDto.id === 0) {
-        this.props.eventTypeStore.createRole();
-        await this.props.eventTypeStore.getAllPermissions();
+        this.props.eventTypeStore.createEventType();
       } else {
-        await this.props.eventTypeStore.getRoleForEdit(entityDto);
-        await this.props.eventTypeStore.getAllPermissions();
+        await this.props.eventTypeStore.get(entityDto);
       }
   
-      this.setState({ roleId: entityDto.id });
+      this.setState({ eventTypeId: entityDto.id });
       this.Modal();
   
-      this.formRef.props.form.setFieldsValue({
-        ...this.props.eventTypeStore.roleEdit.role,
-        grantedPermissions: this.props.eventTypeStore.roleEdit.grantedPermissionNames,
-      });
-    }*/
+      if (entityDto.id !== 0) {
+        this.formRef.props.form.setFieldsValue({
+          ...this.props.eventTypeStore.eventTypeModel,
+        });
+      } else {
+        this.formRef.props.form.resetFields();
+      }
+    }
   
     delete(input: EntityDto) {
       const self = this;
@@ -88,16 +91,16 @@ class EventType extends AppComponentBase<IEventTypeProps, IEventTypeState> {
       });
     }
   
-   /* handleCreate = () => {
+    handleCreate = () => {
       const form = this.formRef.props.form;
       form.validateFields(async (err: any, values: any) => {
         if (err) {
           return;
         } else {
-          if (this.state.roleId === 0) {
+          if (this.state.eventTypeId === 0) {
             await this.props.eventTypeStore.create(values);
           } else {
-            await this.props.eventTypeStore.update({ id: this.state.roleId, ...values });
+            await this.props.eventTypeStore.update({ id: this.state.eventTypeId, ...values });
           }
         }
   
@@ -105,7 +108,7 @@ class EventType extends AppComponentBase<IEventTypeProps, IEventTypeState> {
         this.setState({ modalVisible: false });
         form.resetFields();
       });
-    };*/
+    };
   
     saveFormRef = (formRef: any) => {
       this.formRef = formRef;
@@ -118,8 +121,8 @@ class EventType extends AppComponentBase<IEventTypeProps, IEventTypeState> {
     public render() {
       const { eventType } = this.props.eventTypeStore;
       const columns = [
-        { title: L('Название мероприятия'), dataIndex: 'typeName', key: 'typeName', width: 150, render: (text: string) => <div>{text}</div> },
-        { title: L('ID'), dataIndex: 'id', key: 'id', width: 150, render: (text: string) => <div>{text}</div> },
+        { title: L('ID'), dataIndex: 'id', key: 'id', width: 50, render: (text: string) => <div>{text}</div> },
+        { title: L('Название мероприятия'), dataIndex: 'typeName', key: 'typeName', width: 250, render: (text: string) => <div>{text}</div> },
         {
           title: L('Действия'),
           width: 150,
@@ -129,7 +132,7 @@ class EventType extends AppComponentBase<IEventTypeProps, IEventTypeState> {
                 trigger={['click']}
                 overlay={
                   <Menu>
-                    <Menu.Item /*onClick={() => this.createOrUpdateModalOpen({ id: item.id })}*/>{L('Edit')}</Menu.Item>
+                    <Menu.Item onClick={() => this.createOrUpdateModalOpen({ id: item.id })}>{L('Edit')}</Menu.Item>
                     <Menu.Item onClick={() => this.delete({ id: item.id })}>{L('Delete')}</Menu.Item>
                   </Menu>
                 }
@@ -165,12 +168,12 @@ class EventType extends AppComponentBase<IEventTypeProps, IEventTypeState> {
               xl={{ span: 1, offset: 21 }}
               xxl={{ span: 1, offset: 21 }}
             >
-              <Button type="primary" shape="circle" icon="plus" /*onClick={() => this.createOrUpdateModalOpen({ id: 0 })}*/ />
+              <Button type="primary" shape="circle" icon="plus" onClick={() => this.createOrUpdateModalOpen({ id: 0 })} />
             </Col>
           </Row>
           <Row>
             <Col sm={{ span: 10, offset: 0 }}>
-              
+              <Search placeholder={this.L('Filter')} onSearch={this.handleSearch} />
             </Col>
           </Row>
           <Row style={{ marginTop: 20 }}>
@@ -194,7 +197,18 @@ class EventType extends AppComponentBase<IEventTypeProps, IEventTypeState> {
               />
             </Col>
           </Row>
-  
+
+          <CreateOrUpdateEventType
+            wrappedComponentRef={this.saveFormRef}
+            visible={this.state.modalVisible}
+            onCancel={() =>
+              this.setState({
+                modalVisible: false,
+              })
+            }
+            modalType={this.state.eventTypeId === 0 ? 'edit' : 'create'}
+            onCreate={this.handleCreate}
+          />
           
         </Card>
       );
@@ -204,17 +218,4 @@ class EventType extends AppComponentBase<IEventTypeProps, IEventTypeState> {
 export default EventType;
 
 /* 
-<Search placeholder={this.L('Filter')} onSearch={this.handleSearch} />
-<CreateOrUpdateRole
-            wrappedComponentRef={this.saveFormRef}
-            visible={this.state.modalVisible}
-            onCancel={() =>
-              this.setState({
-                modalVisible: false,
-              })
-            }
-            modalType={this.state.roleId === 0 ? 'edit' : 'create'}
-            onOk={this.handleCreate}
-            permissions={allPermissions}
-            roleStore={this.props.roleStore}
-          /> */
+ */
