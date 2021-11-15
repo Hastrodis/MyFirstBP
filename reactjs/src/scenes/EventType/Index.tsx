@@ -186,7 +186,7 @@ class EventType extends AppComponentBase<IEventTypeProps, IEventTypeState> {
               xxl={{ span: 24, offset: 0 }}
             >
               <Table
-                rowKey="iD"
+                rowKey="id"
                 size={'default'}
                 bordered={true}
                 pagination={{ pageSize: this.state.maxResultCount, total: eventType === undefined ? 0 : eventType.totalCount, defaultCurrent: 1 }}
@@ -197,7 +197,6 @@ class EventType extends AppComponentBase<IEventTypeProps, IEventTypeState> {
               />
             </Col>
           </Row>
-
           <CreateOrUpdateEventType
             wrappedComponentRef={this.saveFormRef}
             visible={this.state.modalVisible}
