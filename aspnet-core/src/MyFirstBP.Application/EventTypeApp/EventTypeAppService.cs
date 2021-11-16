@@ -43,13 +43,12 @@ namespace MyFirstBP.EventTypeApp
 
         public void Update(UpdateEventTypeInput input)
         {
-            var eventType = _eventTypeRepository.FirstOrDefault(t => t.Id == input.Id);
+            var eventType = _eventTypeRepository.Get(input.Id);
             if (eventType is null)
             {
                 throw new UserFriendlyException("Мероприятие не найден");
             }
-            eventType = new EventType {Id = input.Id, TypeName = input.TypeName };
-            _eventTypeRepository.Update(eventType);
+            eventType.TypeName = input.TypeName;
         }
 
         public async Task<ListResultDto<EventTypeListDto>> GetAll()

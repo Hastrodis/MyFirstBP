@@ -1,6 +1,6 @@
 import http from "../httpService";
 import { PagedEventTypeResultRequestDto } from './dto/pagedEventTypeResultRequestDto';
-import { getAllEventTypeOutput } from './dto/getAllEventTypeOutput';
+import { GetAllEventTypeOutput } from './dto/getAllEventTypeOutput';
 import { PagedResultDto } from '../dto/pagedResultDto';
 import { EntityDto } from '../dto/entityDto';
 import CreateEventTypeInput from "./dto/createEventTypeInput";
@@ -12,7 +12,7 @@ import GetEventTypeOutput from "./dto/getEventTypeOutput";
 class EventTypeService {
 
   public async create(createEvenTypeInput: CreateEventTypeInput): Promise<CreateEventTypeOutput> {
-    let result = await http.post('/api/services/app/EventType/Create', CreateEventTypeInput);
+    let result = await http.post('/api/services/app/EventType/Create', createEvenTypeInput);
     return result.data.result;    
   }
 
@@ -22,17 +22,17 @@ class EventTypeService {
   }
 
   public async get(entityDto: EntityDto): Promise<GetEventTypeOutput> {
-    let result = await http.get('api/services/app/Tenant/Get', { params: entityDto });
+    let result = await http.get('api/services/app/EventType/Get', { params: entityDto });
     return result.data.result;
   }
 
-  public async getAll(pagedFilterAndSortedRequest: PagedEventTypeResultRequestDto): Promise<PagedResultDto<getAllEventTypeOutput>> {
+  public async getAll(pagedFilterAndSortedRequest: PagedEventTypeResultRequestDto): Promise<PagedResultDto<GetAllEventTypeOutput>> {
     let result = await http.get('/api/services/app/EventType/GetAll', { params: pagedFilterAndSortedRequest });
     return result.data.result;
   }
 
   public async update(updateEventTypeInput: UpdateEventTypeInput): Promise<UpdateEventTypeOutput> {
-    let result = await http.put('api/services/app/Tenant/Update', updateEventTypeInput);
+    let result = await http.put('api/services/app/EventType/Update', updateEventTypeInput);
     return result.data.result;
   }
 }

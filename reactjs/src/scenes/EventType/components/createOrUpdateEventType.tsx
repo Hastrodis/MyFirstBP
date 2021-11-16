@@ -42,9 +42,6 @@ class CreateOrUpdateEventType extends React.Component<ICreateOrUpdateEvetTypePro
     return (
       <Modal visible={visible} onCancel={onCancel} onOk={onCreate} title={L('Типы мероприятий')} width={550}>
         <Form>
-          <FormItem label={L('ID')} {...formItemLayout}>
-            {this.props.form.getFieldDecorator('id', { rules: rules.id })(<Input />)}
-          </FormItem>
           <FormItem label={L('Мероприятие')} {...formItemLayout}>
             {getFieldDecorator('typeName', { rules: rules.typeName })(<Input />)}
           </FormItem>

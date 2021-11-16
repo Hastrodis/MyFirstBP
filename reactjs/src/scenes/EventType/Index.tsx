@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { inject, observer } from 'mobx-react';
 
-import { Button, Card, Col, Dropdown, Input, Menu, Row, Modal, Table } from 'antd';
+import { Button, Card, Col, Dropdown, Menu, Row, Modal, Table } from 'antd';
 
 import AppComponentBase from '../../components/AppComponentBase';
 import { FormComponentProps } from 'antd/lib/form';
@@ -27,7 +27,6 @@ export interface IEventTypeState {
 }
 
 const confirm = Modal.confirm;
-const Search = Input.Search;
 
 @inject(Stores.EventTypeStore)
 @observer
@@ -114,9 +113,6 @@ class EventType extends AppComponentBase<IEventTypeProps, IEventTypeState> {
       this.formRef = formRef;
     };
   
-    handleSearch = (value: string) => {
-      this.setState({ filter: value }, async () => await this.getAll());
-    };
   
     public render() {
       const { eventType } = this.props.eventTypeStore;
@@ -172,9 +168,6 @@ class EventType extends AppComponentBase<IEventTypeProps, IEventTypeState> {
             </Col>
           </Row>
           <Row>
-            <Col sm={{ span: 10, offset: 0 }}>
-              <Search placeholder={this.L('Filter')} onSearch={this.handleSearch} />
-            </Col>
           </Row>
           <Row style={{ marginTop: 20 }}>
             <Col

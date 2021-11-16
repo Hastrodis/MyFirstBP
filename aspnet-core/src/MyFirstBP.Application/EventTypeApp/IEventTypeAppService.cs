@@ -17,6 +17,5 @@ namespace MyFirstBP.EventTypeApp
 
         Task<ListResultDto<EventTypeListDto>> Get(EventTypeListDto input);
 
-        //Task<ListResultDto<UpdateEventTypeInput>> Update(UpdateEventTypeInput input);
     }
 }

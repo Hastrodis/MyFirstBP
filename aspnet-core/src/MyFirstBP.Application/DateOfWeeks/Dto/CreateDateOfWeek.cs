@@ -5,7 +5,7 @@ using MyFirstBP.EventsEnt;
 namespace MyFirstBP.DateOfWeeks.Dto
 {
     [AutoMapFrom(typeof(DateOfWeek))]
-    public class DateOfWeekDto : EntityDto
+    public class CreateDateOfWeek : EntityDto
     {
         public SWeek WeekName { get; set; }
 
