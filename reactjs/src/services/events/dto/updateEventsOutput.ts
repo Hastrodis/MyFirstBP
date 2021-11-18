@@ -3,4 +3,5 @@ export interface UpdateEventsOutput {
     description: string;
     picture: string;
     evTypeID: string;
+    id: number;
 }

@@ -11,5 +11,6 @@ namespace MyFirstBP.EventsAPP.Dto
         public string Description { get; set; }
         public string Picture { get; set; }
         public int EvTypeID { get; set; }
+        public string TypeName { get; set; }
     }
 }

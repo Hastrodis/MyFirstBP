@@ -50,7 +50,7 @@ class EventsLayout extends React.Component<any> {
                 </Layout.Header>
                 <Content style={{ margin: 16 }}>
                     <Switch>
-                        {pathname === '/' && <Redirect from="/" to="/eventtype" />}
+                        {pathname === '/' && <Redirect from="/" to="/events" />}
                             {eventsRouter
                                 .filter((item: any) => !item.isLayout)
                                 .map((route: any, index: any) => (

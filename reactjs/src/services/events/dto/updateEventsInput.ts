@@ -3,4 +3,6 @@ export default interface UpdateEventsInput {
     description: string;
     picture: string;
     evTypeID: string;
+    id: number;
+    
 }

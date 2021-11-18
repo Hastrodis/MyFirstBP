@@ -3,4 +3,5 @@ export default interface CreateEventsOutput {
     description: string;
     picture: string;
     evTypeID: string;
+    id: number;
 }

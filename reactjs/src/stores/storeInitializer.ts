@@ -5,6 +5,7 @@ import SessionStore from './sessionStore';
 import AuthenticationStore from './authenticationStore';
 import AccountStore from './accountStore';
 import EventTypeStore from './eventTypeStore';
+import EventsStore from './eventsStore';
 
 
 export default function initializeStores() {
@@ -16,5 +17,6 @@ export default function initializeStores() {
     sessionStore: new SessionStore(),
     accountStore: new AccountStore(),
     eventTypeStore: new EventTypeStore(),
+    eventsStore: new EventsStore(),
   };
 }

@@ -3,4 +3,5 @@ export interface GetAllEventsOutput {
     description: string;
     picture: string;
     evTypeID: string;
+    id: number;
 }

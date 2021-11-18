@@ -14,10 +14,12 @@ namespace MyFirstBP.EventsAPP
     public class EventsAppService : MyFirstBPAppServiceBase, IEventsAppService
     {
         private readonly IRepository<EventTab> _eventRepository;
+        private readonly IRepository<EventType> _eventTypeRepository;
 
-        public EventsAppService(IRepository<EventTab> eventRepository)
+        public EventsAppService(IRepository<EventTab> eventRepository, IRepository<EventType> eventTypeRepository)
         {
             _eventRepository = eventRepository;
+            _eventTypeRepository = eventTypeRepository;
         }
 
         public void Create(CreateEvents input)
@@ -69,8 +71,28 @@ namespace MyFirstBP.EventsAPP
             var events = await _eventRepository
                 .GetAll()
                 .ToListAsync();
+            var eventType = await _eventTypeRepository
+                .GetAll()
+                .ToListAsync();
+            var eventsAll = new List<EventsListDto>();
+            foreach (var e in events)
+            {
+                foreach(var i in eventType)
+                {
+                    if (e.EvTypeID == i.Id)
+                        eventsAll.Add(new EventsListDto()
+                        {
+                            Id = e.Id,
+                            Title = e.Title,
+                            Description = e.Description,
+                            Picture = e.Picture,
+                            EvTypeID = e.EvTypeID,
+                            TypeName = i.TypeName
+                        });
+                }
+            }
             return new ListResultDto<EventsListDto>(
-                ObjectMapper.Map<List<EventsListDto>>(events)
+                ObjectMapper.Map<List<EventsListDto>>(eventsAll)
             );
         }
 
@@ -80,8 +102,28 @@ namespace MyFirstBP.EventsAPP
                 .GetAll()
                 .Where(t => t.Title == input.Title || t.Id == input.Id)
                 .ToListAsync();
+            var eventType = await _eventTypeRepository
+               .GetAll()
+               .ToListAsync();
+            var eventsAll = new List<EventsListDto>();
+            foreach (var e in events)
+            {
+                foreach (var i in eventType)
+                {
+                    if (e.EvTypeID == i.Id)
+                        eventsAll.Add(new EventsListDto()
+                        {
+                            Id = e.Id,
+                            Title = e.Title,
+                            Description = e.Description,
+                            Picture = e.Picture,
+                            EvTypeID = e.EvTypeID,
+                            TypeName = i.TypeName
+                        });
+                }
+            }
             return new ListResultDto<EventsListDto>(
-                ObjectMapper.Map<List<EventsListDto>>(events)
+                ObjectMapper.Map<List<EventsListDto>>(eventsAll)
             );
         }
     }
