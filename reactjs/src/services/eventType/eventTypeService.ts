@@ -35,6 +35,12 @@ class EventTypeService {
     let result = await http.put('api/services/app/EventType/Update', updateEventTypeInput);
     return result.data.result;
   }
+  
+  public async getAllEventType() {
+    let result = await http.get('/api/services/app/EventType/GetAll');
+    return result.data.result.items;
+  }
+
 }
 
 export default new EventTypeService();

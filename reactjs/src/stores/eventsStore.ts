@@ -4,17 +4,20 @@ import { action, observable } from 'mobx';
 import { PagedResultDto } from '../services/dto/pagedResultDto';
 import { EntityDto } from '../services/dto/entityDto';
 import eventsService from '../services/events/eventsService';
+import eventTypeService from '../services/eventType/eventTypeService';
 import UpdateEventsInput from '../services/events/dto/updateEventsInput';
 import CreateEventsInput from '../services/events/dto/createEventsInput';
 import EventsModel from '../models/Event/eventsModel';
 import { GetAllEventsOutput } from '../services/events/dto/getAllEventsOutput';
 import GetEventsOutput from '../services/events/dto/getEventsOutput';
 import { PagedEventsResultRequestDto } from '../services/events/dto/pagedEventsResultRequestDto';
+import { GetAllEventTypeOutput } from '../services/eventType/dto/getAllEventTypeOutput';
 
 
 class EventsStore {
     @observable events!: PagedResultDto<GetEventsOutput>;
     @observable eventsModel: EventsModel = new EventsModel();
+    @observable allEventType: GetAllEventTypeOutput[] = [];
 
     @action
     async create(createEventsInput: CreateEventsInput) {
@@ -53,6 +56,12 @@ class EventsStore {
     async delete(entityDto: EntityDto) {
         await eventsService.delete(entityDto);
         this.events.items = this.events.items.filter((x: GetAllEventsOutput) => x.id !== entityDto.id);
+    }
+
+    @action
+    async getAllEventType() {
+        var result = await eventTypeService.getAllEventType();
+        this.allEventType = result;
     }
 
     @action

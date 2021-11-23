@@ -1,12 +1,14 @@
 import * as React from 'react';
 
-import { Checkbox, Form, Input, Modal, Tabs } from 'antd';
+import { Form, Input, Modal, Select, Tabs } from 'antd';
 
 import CheckboxGroup from 'antd/lib/checkbox/Group';
 import { FormComponentProps } from 'antd/lib/form';
 import FormItem from 'antd/lib/form/FormItem';
-import { GetRoles } from '../../../services/user/dto/getRolesOuput';
 import { L } from '../../../lib/abpUtility';
+import TextArea from 'antd/lib/input/TextArea';
+import { GetAllEventTypeOutput } from '../../../services/eventType/dto/getAllEventTypeOutput';
+//import { GetDateWeek } from '../../../services/events/dto/getDateWeek';
 //import rules from './createOrUpdateEvents.validation';
 
 const TabPane = Tabs.TabPane;
@@ -16,7 +18,7 @@ export interface ICreateOrUpdateEventsProps extends FormComponentProps {
   onCancel: () => void;
   modalType: string;
   onCreate: () => void;
-  roles: GetRoles[];
+  eventType: GetAllEventTypeOutput[];
 }
 
 class CreateOrUpdateEvents extends React.Component<ICreateOrUpdateEventsProps> {
@@ -42,7 +44,7 @@ class CreateOrUpdateEvents extends React.Component<ICreateOrUpdateEventsProps> {
   };
 
   render() {
-    const { roles } = this.props;
+    //const { dateWeek } = this.props;
 
     const formItemLayout = {
       labelCol: {
@@ -84,64 +86,38 @@ class CreateOrUpdateEvents extends React.Component<ICreateOrUpdateEventsProps> {
     const { getFieldDecorator } = this.props.form;
     const { visible, onCancel, onCreate } = this.props;
 
-    const options = roles.map((x: GetRoles) => {
-      var test = { label: x.displayName, value: x.normalizedName };
+    /*const options = dateWeek.map((x: GetDateWeek) => {
+      var test = { x.};
       return test;
-    });
-
+    });*/
+    console.log(this.props.eventType)
     return (
-      <Modal visible={visible} cancelText={L('Cancel')} okText={L('OK')} onCancel={onCancel} onOk={onCreate} title={'User'}>
+      <Modal visible={visible} cancelText={L('Cancel')} okText={L('OK')} onCancel={onCancel} onOk={onCreate} title={'Мероприятие'}>
         <Tabs defaultActiveKey={'userInfo'} size={'small'} tabBarGutter={64}>
-          <TabPane tab={'User'} key={'user'}>
-            <FormItem label={L('Name')} {...formItemLayout}>
-              {getFieldDecorator('name', /*{ rules: rules.name }*/)(<Input />)}
+          <TabPane tab={'Мероприятие'} key={'events'}>
+            <FormItem label={L('Заголовок')} {...formItemLayout}>
+              {getFieldDecorator('title', /*{ rules: rules.name }*/)(<Input />)}
             </FormItem>
-            <FormItem label={L('Surname')} {...formItemLayout}>
-              {getFieldDecorator('surname', /*{ rules: rules.surname }*/)(<Input />)}
+            <FormItem label={L('Описание')} {...formItemLayout}>
+              {getFieldDecorator('description', /*{ rules: rules.surname }*/)(<TextArea />)}
             </FormItem>
-            <FormItem label={L('UserName')} {...formItemLayout}>
-              {getFieldDecorator('userName', /*{ rules: rules.userName }*/)(<Input />)}
+            <FormItem label={L('Изображение')} {...formItemLayout}>
+              {getFieldDecorator('picture', /*{ rules: rules.userName }*/)(<Input />)}
             </FormItem>
-            <FormItem label={L('Email')} {...formItemLayout}>
-              {getFieldDecorator('emailAddress', /*{ rules: rules.emailAddress }*/)(<Input />)}
-            </FormItem>
-            {this.props.modalType === 'edit' ? (
-              <FormItem label={L('Password')} {...formItemLayout}>
-                {getFieldDecorator('password', {
-                  rules: [
-                    {
-                      required: true,
-                      message: 'Please input your password!',
-                    },
-                    {
-                      validator: this.validateToNextPassword,
-                    },
-                  ],
-                })(<Input type="password" />)}
-              </FormItem>
-            ) : null}
-            {this.props.modalType === 'edit' ? (
-              <FormItem label={L('ConfirmPassword')} {...formItemLayout}>
-                {getFieldDecorator('confirm', {
-                  rules: [
-                    {
-                      required: true,
-                      message: L('ConfirmPassword'),
-                    },
-                    {
-                      validator: this.compareToFirstPassword,
-                    },
-                  ],
-                })(<Input type="password" />)}
-              </FormItem>
-            ) : null}
-            <FormItem label={L('IsActive')} {...tailFormItemLayout}>
-              {getFieldDecorator('isActive', { valuePropName: 'checked' })(<Checkbox>Aktif</Checkbox>)}
+            <FormItem label={L('Тип мероприятия')} {...formItemLayout}>
+              {getFieldDecorator('evTypeID', /*{ rules: rules.emailAddress }*/)
+              
+              (<Select placeholder="Выберите тип мероприятия" style={{width: '100%'}} > 
+                {this.props.eventType.map(typeName => 
+                  <Select.Option key = {typeName.id} value = {typeName.id}> {typeName.typeName} </Select.Option> )
+                }
+              </Select>)
+              }
             </FormItem>
           </TabPane>
-          <TabPane tab={L('Roles')} key={'rol'}>
+          <TabPane tab={L('Дни недели')} key={'dayWeek'}>
             <FormItem {...tailFormItemLayout}>
-              {getFieldDecorator('roleNames', { valuePropName: 'value' })(<CheckboxGroup options={options} />)}
+              {getFieldDecorator('weekName', { valuePropName: 'value' })(<CheckboxGroup options={["ПН", "ВТ"]} />)}
             </FormItem>
           </TabPane>
         </Tabs>
@@ -151,3 +127,7 @@ class CreateOrUpdateEvents extends React.Component<ICreateOrUpdateEventsProps> {
 }
 
 export default Form.create<ICreateOrUpdateEventsProps>()(CreateOrUpdateEvents);
+
+ 
+
+          

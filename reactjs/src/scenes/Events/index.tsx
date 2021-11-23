@@ -10,12 +10,15 @@ import { EntityDto } from '../../services/dto/entityDto';
 import { L } from '../../lib/abpUtility';
 import Stores from '../../stores/storeIdentifier';
 import EventsStore from '../../stores/eventsStore';
-//import CreateOrUpdateEventType from './components/createOrUpdateEventType';
+import CreateOrUpdatesEvents from './components/createOrUpdatesEvents';
+import EventTypeStore from '../../stores/eventTypeStore';
+
 
 
 
 export interface IEventsProps extends FormComponentProps {
     eventsStore: EventsStore;
+    eventTypeStore: EventTypeStore;
 }
 
 export interface IEventsState {
@@ -33,7 +36,6 @@ const confirm = Modal.confirm;
 class Events extends AppComponentBase<IEventsProps, IEventsState> {
     formRef: any;
 
-
     state = {
       modalVisible: false,
       maxResultCount: 10,
@@ -44,12 +46,13 @@ class Events extends AppComponentBase<IEventsProps, IEventsState> {
   
     async componentDidMount() {
       await this.getAll();
+
     }
   
     async getAll() {
       await this.props.eventsStore.getAll({ maxResultCount: this.state.maxResultCount, skipCount: this.state.skipCount, keyword: this.state.filter });
     }
-  
+    
     handleTableChange = (pagination: any) => {
       this.setState({ skipCount: (pagination.current - 1) * this.state.maxResultCount! }, async () => await this.getAll());
     };
@@ -63,8 +66,10 @@ class Events extends AppComponentBase<IEventsProps, IEventsState> {
     async createOrUpdateModalOpen(entityDto: EntityDto) {
       if (entityDto.id === 0) {
         this.props.eventsStore.createEvents();
+        await this.props.eventsStore.getAllEventType();
       } else {
         await this.props.eventsStore.get(entityDto);
+        await this.props.eventsStore.getAllEventType();
       }
   
       this.setState({ eventsId: entityDto.id });
@@ -122,10 +127,6 @@ class Events extends AppComponentBase<IEventsProps, IEventsState> {
         { title: L('Описание'), dataIndex: 'description', key: 'description', width: 200, render: (text: string) => <div>{text}</div> },
         { title: L('Изображение'), dataIndex: 'picture', key: 'picture', width: 150, render: (text: string) => <div>{text}</div> },
         { title: L('Тип события'), dataIndex: 'typeName', key: 'typeName', width: 100, render: (text: string) => ( <div>{text}</div>
-          /*<Select mode="default">
-            {}
-
-          </Select>*/
         ),
          },
         {
@@ -199,7 +200,18 @@ class Events extends AppComponentBase<IEventsProps, IEventsState> {
               />
             </Col>
           </Row>
-          
+          <CreateOrUpdatesEvents
+            wrappedComponentRef={this.saveFormRef}
+            visible={this.state.modalVisible}
+            eventType={this.props.eventsStore.allEventType}
+            onCancel={() =>
+              this.setState({
+                modalVisible: false,
+              })
+            }
+            modalType={this.state.eventsId === 0 ? 'edit' : 'create'}
+            onCreate={this.handleCreate}
+          /> 
           
         </Card>
       );
@@ -208,14 +220,4 @@ class Events extends AppComponentBase<IEventsProps, IEventsState> {
 
 export default Events;
 
-/* <CreateOrUpdateEvents
-            wrappedComponentRef={this.saveFormRef}
-            visible={this.state.modalVisible}
-            onCancel={() =>
-              this.setState({
-                modalVisible: false,
-              })
-            }
-            modalType={this.state.eventsId === 0 ? 'edit' : 'create'}
-            onCreate={this.handleCreate}
-          /> */
+/* */

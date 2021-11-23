@@ -208,6 +208,3 @@ class EventType extends AppComponentBase<IEventTypeProps, IEventTypeState> {
 }
 
 export default EventType;
-
-/* 
- */

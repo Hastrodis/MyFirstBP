@@ -3,6 +3,5 @@ export default class GetEventsOutput {
     description!: string;
     picture!: string;
     evTypeID!: string;
-    
     id!: number;
 }
