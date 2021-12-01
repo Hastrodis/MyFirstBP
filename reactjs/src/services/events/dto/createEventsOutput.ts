@@ -4,4 +4,5 @@ export default interface CreateEventsOutput {
     picture: string;
     evTypeID: string;
     id: number;
+    dateWeek: number[];
 }

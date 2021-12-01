@@ -1,6 +1,5 @@
-export interface GetDateWeek {
+export interface GetAllDateWeek {
     weekName: number;
     eventId: number;
-    normalized: string;
     id: number;
 }

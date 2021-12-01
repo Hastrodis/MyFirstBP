@@ -3,4 +3,5 @@ export default class CreateEventsInput {
     description!: string;
     picture!: string;
     evTypeID!: string;
+    dateWeek!: number[];
 }

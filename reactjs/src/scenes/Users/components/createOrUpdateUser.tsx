@@ -88,7 +88,7 @@ class CreateOrUpdateUser extends React.Component<ICreateOrUpdateUserProps> {
       var test = { label: x.displayName, value: x.normalizedName };
       return test;
     });
-
+    console.log(this.props.roles)
     return (
       <Modal visible={visible} cancelText={L('Cancel')} okText={L('OK')} onCancel={onCancel} onOk={onCreate} title={'User'}>
         <Tabs defaultActiveKey={'userInfo'} size={'small'} tabBarGutter={64}>

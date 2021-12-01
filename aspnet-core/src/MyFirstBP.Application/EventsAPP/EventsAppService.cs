@@ -8,6 +8,8 @@ using Abp.Application.Services.Dto;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System;
+using MyFirstBP.DateOfWeeks.Dto;
 
 namespace MyFirstBP.EventsAPP
 {
@@ -15,24 +17,43 @@ namespace MyFirstBP.EventsAPP
     {
         private readonly IRepository<EventTab> _eventRepository;
         private readonly IRepository<EventType> _eventTypeRepository;
+        private readonly IRepository<DateOfWeek> _dateWeekRepository;
 
-        public EventsAppService(IRepository<EventTab> eventRepository, IRepository<EventType> eventTypeRepository)
+        public EventsAppService(IRepository<EventTab> eventRepository, IRepository<EventType> eventTypeRepository, IRepository<DateOfWeek> dateWeekRepository)
         {
             _eventRepository = eventRepository;
             _eventTypeRepository = eventTypeRepository;
+            _dateWeekRepository = dateWeekRepository;
         }
 
         public void Create(CreateEvents input)
         {
+            Random rnd = new Random();
+            int idrand = rnd.Next(0, 65000);
+            if (_eventRepository.FirstOrDefault(t => t.Id == idrand) != null)
+                idrand = rnd.Next(0, 65000); 
+            else
+            {
+                var events = new EventTab
+                {
+                    Id = idrand,
+                    Title = input.Title,
+                    Description = input.Description,
+                    Picture = input.Picture,
+                    EvTypeID = input.EvTypeID,
+                };
+                _eventRepository.Insert(events);
+                foreach (var e in input.DateWeeks)
+                {
+                    var dateWeek = new DateOfWeek
+                    {
+                        EventID = idrand,
+                        WeekName = e.WeekName
+                    };
+                    _dateWeekRepository.Insert(dateWeek);
+                }
+            }
             
-            var events = new EventTab { 
-                Title = input.Title, 
-                Description = input.Description, 
-                Picture = input.Picture,
-                EvTypeID = input.EvTypeID
-            };
-            _eventRepository.Insert(events);
-
         }
 
         public void Delete(int id)
@@ -80,6 +101,13 @@ namespace MyFirstBP.EventsAPP
                 foreach(var i in eventType)
                 {
                     if (e.EvTypeID == i.Id)
+                    {
+                        /*var dateWeek = await _dateWeekRepository
+                            .GetAll()
+                            .Where(t => t.EventID == e.Id)
+                            .ToListAsync();
+                         var weekEvents = new CreateDateOfWeek();
+                         foreach*/
                         eventsAll.Add(new EventsListDto()
                         {
                             Id = e.Id,
@@ -87,8 +115,11 @@ namespace MyFirstBP.EventsAPP
                             Description = e.Description,
                             Picture = e.Picture,
                             EvTypeID = e.EvTypeID,
-                            TypeName = i.TypeName
+                            TypeName = i.TypeName,
+                            //DateWeeks = 
+
                         });
+                    }
                 }
             }
             return new ListResultDto<EventsListDto>(

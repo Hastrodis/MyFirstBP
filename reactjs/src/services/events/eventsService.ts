@@ -8,6 +8,8 @@ import { PagedEventsResultRequestDto } from "./dto/pagedEventsResultRequestDto";
 import { GetAllEventsOutput } from "./dto/getAllEventsOutput";
 import UpdateEventsInput from "./dto/updateEventsInput";
 import { UpdateEventsOutput } from "./dto/updateEventsOutput";
+import CreateDateWeekInput from "./dto/createDateWeekInput";
+import CreateDateWeekOutput from "./dto/createDateWeekOutput";
 
 
 class EventsService {
@@ -36,6 +38,17 @@ class EventsService {
     let result = await http.put('/api/services/app/Events/Update', updateEventsInput);
     return result.data.result;
   }
+
+  public async getAllDateWeek() {
+    let result = await http.get('/api/services/app/DateWeek/GetAll');
+    return result.data.result.items;
+  }
+
+  public async createDateWeek(createDateWeek: CreateDateWeekInput): Promise<CreateDateWeekOutput> {
+    let result = await http.post('/api/services/app/DateWeek/Create', createDateWeek);
+    return result.data.result;    
+  }
+
 }
 
 export default new EventsService();

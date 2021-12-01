@@ -11,14 +11,12 @@ import { L } from '../../lib/abpUtility';
 import Stores from '../../stores/storeIdentifier';
 import EventsStore from '../../stores/eventsStore';
 import CreateOrUpdatesEvents from './components/createOrUpdatesEvents';
-import EventTypeStore from '../../stores/eventTypeStore';
 
 
 
 
 export interface IEventsProps extends FormComponentProps {
     eventsStore: EventsStore;
-    eventTypeStore: EventTypeStore;
 }
 
 export interface IEventsState {
@@ -67,9 +65,11 @@ class Events extends AppComponentBase<IEventsProps, IEventsState> {
       if (entityDto.id === 0) {
         this.props.eventsStore.createEvents();
         await this.props.eventsStore.getAllEventType();
+        await this.props.eventsStore.getAllDateWeek();
       } else {
         await this.props.eventsStore.get(entityDto);
         await this.props.eventsStore.getAllEventType();
+        await this.props.eventsStore.getAllDateWeek();
       }
   
       this.setState({ eventsId: entityDto.id });
@@ -110,6 +110,7 @@ class Events extends AppComponentBase<IEventsProps, IEventsState> {
   
         await this.getAll();
         this.setState({ modalVisible: false });
+        form.setFieldsValue({  });
         form.resetFields();
       });
     };
@@ -152,7 +153,7 @@ class Events extends AppComponentBase<IEventsProps, IEventsState> {
           ),
         },
       ];
-  
+      
       return (
         <Card>
           <Row>
@@ -204,6 +205,7 @@ class Events extends AppComponentBase<IEventsProps, IEventsState> {
             wrappedComponentRef={this.saveFormRef}
             visible={this.state.modalVisible}
             eventType={this.props.eventsStore.allEventType}
+            dateWeek= {this.props.eventsStore.allDateWeek}
             onCancel={() =>
               this.setState({
                 modalVisible: false,

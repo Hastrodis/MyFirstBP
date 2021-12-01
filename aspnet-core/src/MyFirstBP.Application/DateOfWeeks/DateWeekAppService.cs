@@ -38,8 +38,8 @@ namespace MyFirstBP.DateOfWeeks
 
         public void Delete(int id)
         {
-            var events = _dateWeekRepository.FirstOrDefault(t => t.Id == id);
-            if (events is null)
+            var dateWeek = _dateWeekRepository.FirstOrDefault(t => t.Id == id);
+            if (dateWeek is null)
             {
                 throw new UserFriendlyException("День недели свободен");
             }
@@ -53,14 +53,24 @@ namespace MyFirstBP.DateOfWeeks
             dateWeek.EventID = input.EventID;
         }
 
+        public async Task<ListResultDto<DateOfWeekDto>> GetAll()
+        {
+            var dateWeek = await _dateWeekRepository
+                .GetAll()
+                .ToListAsync();
+            return new ListResultDto<DateOfWeekDto>(
+                ObjectMapper.Map<List<DateOfWeekDto>>(dateWeek)
+            );
+        }
+
         public async Task<ListResultDto<DateOfWeekDto>> Get(DateOfWeekDto input)
         {
-            var events = await _dateWeekRepository
+            var dateWeek = await _dateWeekRepository
                 .GetAll()
                 .Where(t => t.WeekName == input.WeekName || t.Id == input.Id || t.EventID == input.EventID)
                 .ToListAsync();
             return new ListResultDto<DateOfWeekDto>(
-                ObjectMapper.Map<List<DateOfWeekDto>>(events)
+                ObjectMapper.Map<List<DateOfWeekDto>>(dateWeek)
             );
         }
 

@@ -7,7 +7,7 @@ using Abp.Domain.Entities.Auditing;
 namespace MyFirstBP.EventsEnt
 {
     [Table("Events")]
-    public class EventTab : Entity
+    public class EventTab : Entity<int>
     {
         [Required]
         [StringLength(256)]

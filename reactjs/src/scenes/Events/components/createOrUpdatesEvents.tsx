@@ -2,12 +2,15 @@ import * as React from 'react';
 
 import { Form, Input, Modal, Select, Tabs } from 'antd';
 
-import CheckboxGroup from 'antd/lib/checkbox/Group';
+
 import { FormComponentProps } from 'antd/lib/form';
 import FormItem from 'antd/lib/form/FormItem';
 import { L } from '../../../lib/abpUtility';
 import TextArea from 'antd/lib/input/TextArea';
 import { GetAllEventTypeOutput } from '../../../services/eventType/dto/getAllEventTypeOutput';
+import { GetAllDateWeek } from '../../../services/events/dto/getAllDateWeek';
+import NormalizeValueDateWeek from '../../../services/events/dto/normalizeValueDateWeek';
+//import { values } from 'mobx';
 //import { GetDateWeek } from '../../../services/events/dto/getDateWeek';
 //import rules from './createOrUpdateEvents.validation';
 
@@ -19,6 +22,8 @@ export interface ICreateOrUpdateEventsProps extends FormComponentProps {
   modalType: string;
   onCreate: () => void;
   eventType: GetAllEventTypeOutput[];
+  dateWeek: GetAllDateWeek[];
+ // normalizedNamle: NormalizeValueDateWeek[];
 }
 
 class CreateOrUpdateEvents extends React.Component<ICreateOrUpdateEventsProps> {
@@ -42,29 +47,14 @@ class CreateOrUpdateEvents extends React.Component<ICreateOrUpdateEventsProps> {
     }
     callback();
   };
+  changeDateWeek = (rule: any, value: any, callback: any) => {
+    
+  }
 
   render() {
-    //const { dateWeek } = this.props;
+    //const { normalizedNamle } = this.props;
 
     const formItemLayout = {
-      labelCol: {
-        xs: { span: 6 },
-        sm: { span: 6 },
-        md: { span: 6 },
-        lg: { span: 6 },
-        xl: { span: 6 },
-        xxl: { span: 6 },
-      },
-      wrapperCol: {
-        xs: { span: 18 },
-        sm: { span: 18 },
-        md: { span: 18 },
-        lg: { span: 18 },
-        xl: { span: 18 },
-        xxl: { span: 18 },
-      },
-    };
-    const tailFormItemLayout = {
       labelCol: {
         xs: { span: 6 },
         sm: { span: 6 },
@@ -86,11 +76,19 @@ class CreateOrUpdateEvents extends React.Component<ICreateOrUpdateEventsProps> {
     const { getFieldDecorator } = this.props.form;
     const { visible, onCancel, onCreate } = this.props;
 
-    /*const options = dateWeek.map((x: GetDateWeek) => {
-      var test = { x.};
-      return test;
-    });*/
-    console.log(this.props.eventType)
+    let options: NormalizeValueDateWeek[] = [
+      {"dayWeekNumber": 1, "dayWeekName": "ПН"},
+      {"dayWeekNumber": 2, "dayWeekName": "ВТ"},
+      {"dayWeekNumber": 3, "dayWeekName": "СР"},
+      {"dayWeekNumber": 4, "dayWeekName": "ЧТ"},
+      {"dayWeekNumber": 5, "dayWeekName": "ПТ"},
+      {"dayWeekNumber": 6, "dayWeekName": "СБ"},
+      {"dayWeekNumber": 7, "dayWeekName": "ВС"},
+    ]
+
+    //const options: (typeof NormalizeValueDateWeek) = [{x.}]
+
+    console.log(this.props.dateWeek)
     return (
       <Modal visible={visible} cancelText={L('Cancel')} okText={L('OK')} onCancel={onCancel} onOk={onCreate} title={'Мероприятие'}>
         <Tabs defaultActiveKey={'userInfo'} size={'small'} tabBarGutter={64}>
@@ -106,7 +104,6 @@ class CreateOrUpdateEvents extends React.Component<ICreateOrUpdateEventsProps> {
             </FormItem>
             <FormItem label={L('Тип мероприятия')} {...formItemLayout}>
               {getFieldDecorator('evTypeID', /*{ rules: rules.emailAddress }*/)
-              
               (<Select placeholder="Выберите тип мероприятия" style={{width: '100%'}} > 
                 {this.props.eventType.map(typeName => 
                   <Select.Option key = {typeName.id} value = {typeName.id}> {typeName.typeName} </Select.Option> )
@@ -114,10 +111,14 @@ class CreateOrUpdateEvents extends React.Component<ICreateOrUpdateEventsProps> {
               </Select>)
               }
             </FormItem>
-          </TabPane>
-          <TabPane tab={L('Дни недели')} key={'dayWeek'}>
-            <FormItem {...tailFormItemLayout}>
-              {getFieldDecorator('weekName', { valuePropName: 'value' })(<CheckboxGroup options={["ПН", "ВТ"]} />)}
+            <FormItem label={L('Дни недель')}  {...formItemLayout}>
+              {getFieldDecorator('WeekName', /*{ rules: rules.emailAddress }*/)
+              (<Select placeholder="Выберите дни недели"  style={{width: '100%'}} > 
+                {options.map(dateWeek => 
+                  <Select.Option key = {dateWeek.dayWeekNumber} value = {dateWeek.dayWeekNumber}> {dateWeek.dayWeekName} </Select.Option> )
+                }
+              </Select>)
+              }
             </FormItem>
           </TabPane>
         </Tabs>

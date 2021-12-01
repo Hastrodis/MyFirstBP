@@ -13,7 +13,7 @@ namespace MyFirstBP.DateOfWeeks
 
         void Update(UpdateDateOfWeek input);
 
-        //Task<ListResultDto<EventsListDto>> GetAll();
+        Task<ListResultDto<DateOfWeekDto>> GetAll();
 
         Task<ListResultDto<DateOfWeekDto>> Get(DateOfWeekDto input);
     }

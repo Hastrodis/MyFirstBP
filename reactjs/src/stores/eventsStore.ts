@@ -12,12 +12,18 @@ import { GetAllEventsOutput } from '../services/events/dto/getAllEventsOutput';
 import GetEventsOutput from '../services/events/dto/getEventsOutput';
 import { PagedEventsResultRequestDto } from '../services/events/dto/pagedEventsResultRequestDto';
 import { GetAllEventTypeOutput } from '../services/eventType/dto/getAllEventTypeOutput';
+import { GetAllDateWeek } from '../services/events/dto/getAllDateWeek';
+import DateWeekModel from '../models/Event/dateWeekModel';
+import NormalizeValueDateWeek from '../services/events/dto/normalizeValueDateWeek';
 
 
 class EventsStore {
     @observable events!: PagedResultDto<GetEventsOutput>;
     @observable eventsModel: EventsModel = new EventsModel();
+    @observable dateWeekModel: DateWeekModel = new DateWeekModel();
     @observable allEventType: GetAllEventTypeOutput[] = [];
+    @observable allDateWeek: GetAllDateWeek[] = [];
+    @observable normalizedName: NormalizeValueDateWeek[] = [];
 
     @action
     async create(createEventsInput: CreateEventsInput) {
@@ -32,9 +38,19 @@ class EventsStore {
             description: '',
             picture: '',
             evTypeID: '',
+            dateWeek: [ {id: 0, weekName: 0, eventId: 0}]
         }
     }
     
+    @action
+    async createDateWeek() {
+        this.dateWeekModel = {
+            id: 0,
+            eventId: 0,
+            weekName: 0,
+        }
+    }
+
     @action 
     async update(updateEventsInput: UpdateEventsInput) {
         await eventsService.update(updateEventsInput);
@@ -62,6 +78,12 @@ class EventsStore {
     async getAllEventType() {
         var result = await eventTypeService.getAllEventType();
         this.allEventType = result;
+    }
+
+    @action
+    async getAllDateWeek() {
+        var result = await eventsService.getAllDateWeek();
+        this.allDateWeek = result;
     }
 
     @action
