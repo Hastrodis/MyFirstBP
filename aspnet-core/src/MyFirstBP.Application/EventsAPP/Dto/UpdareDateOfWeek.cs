@@ -2,7 +2,7 @@
 using Abp.AutoMapper;
 using MyFirstBP.EventsEnt;
 
-namespace MyFirstBP.DateOfWeeks.Dto
+namespace MyFirstBP.EventsAPP.Dto
 {
     [AutoMapFrom(typeof(DateOfWeek))]
     public class UpdateDateOfWeek : EntityDto

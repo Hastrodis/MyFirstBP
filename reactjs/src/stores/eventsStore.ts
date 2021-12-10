@@ -80,11 +80,6 @@ class EventsStore {
         this.allEventType = result;
     }
 
-    @action
-    async getAllDateWeek() {
-        var result = await eventsService.getAllDateWeek();
-        this.allDateWeek = result;
-    }
 
     @action
     async getAll(pagedFilterAndSortedRequest: PagedEventsResultRequestDto) {

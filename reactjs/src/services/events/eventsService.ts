@@ -39,11 +39,6 @@ class EventsService {
     return result.data.result;
   }
 
-  public async getAllDateWeek() {
-    let result = await http.get('/api/services/app/DateWeek/GetAll');
-    return result.data.result.items;
-  }
-
   public async createDateWeek(createDateWeek: CreateDateWeekInput): Promise<CreateDateWeekOutput> {
     let result = await http.post('/api/services/app/DateWeek/Create', createDateWeek);
     return result.data.result;    

@@ -9,7 +9,7 @@ import { L } from '../../../lib/abpUtility';
 import TextArea from 'antd/lib/input/TextArea';
 import { GetAllEventTypeOutput } from '../../../services/eventType/dto/getAllEventTypeOutput';
 import { GetAllDateWeek } from '../../../services/events/dto/getAllDateWeek';
-import NormalizeValueDateWeek from '../../../services/events/dto/normalizeValueDateWeek';
+//import NormalizeValueDateWeek from '../../../services/events/dto/normalizeValueDateWeek';
 //import { values } from 'mobx';
 //import { GetDateWeek } from '../../../services/events/dto/getDateWeek';
 //import rules from './createOrUpdateEvents.validation';
@@ -31,26 +31,7 @@ class CreateOrUpdateEvents extends React.Component<ICreateOrUpdateEventsProps> {
     confirmDirty: false,
   };
 
-  compareToFirstPassword = (rule: any, value: any, callback: any) => {
-    const form = this.props.form;
-    if (value && value !== form.getFieldValue('password')) {
-      callback('Two passwords that you enter is inconsistent!');
-    } else {
-      callback();
-    }
-  };
-
-  validateToNextPassword = (rule: any, value: any, callback: any) => {
-    const form = this.props.form;
-    if (value && this.state.confirmDirty) {
-      form.validateFields(['confirm'], { force: true });
-    }
-    callback();
-  };
-  changeDateWeek = (rule: any, value: any, callback: any) => {
-    
-  }
-
+ 
   render() {
     //const { normalizedNamle } = this.props;
 
@@ -76,14 +57,14 @@ class CreateOrUpdateEvents extends React.Component<ICreateOrUpdateEventsProps> {
     const { getFieldDecorator } = this.props.form;
     const { visible, onCancel, onCreate } = this.props;
 
-    let options: NormalizeValueDateWeek[] = [
-      {"dayWeekNumber": 1, "dayWeekName": "ПН"},
-      {"dayWeekNumber": 2, "dayWeekName": "ВТ"},
-      {"dayWeekNumber": 3, "dayWeekName": "СР"},
-      {"dayWeekNumber": 4, "dayWeekName": "ЧТ"},
-      {"dayWeekNumber": 5, "dayWeekName": "ПТ"},
-      {"dayWeekNumber": 6, "dayWeekName": "СБ"},
-      {"dayWeekNumber": 7, "dayWeekName": "ВС"},
+    let options: GetAllDateWeek[] = [
+      {"weekName": 1, "id": 0, "eventId":0, "normalizedName": "ПН"},
+      {"weekName": 2, "id": 0, "eventId":0, "normalizedName": "ВТ"},
+      {"weekName": 3, "id": 0, "eventId":0, "normalizedName": "СР"},
+      {"weekName": 4, "id": 0, "eventId":0, "normalizedName": "ЧТ"},
+      {"weekName": 5, "id": 0, "eventId":0, "normalizedName": "ПТ"},
+      {"weekName": 6, "id": 0, "eventId":0, "normalizedName": "СБ"},
+      {"weekName": 7, "id": 0, "eventId":0, "normalizedName": "ВС"},
     ]
 
     //const options: (typeof NormalizeValueDateWeek) = [{x.}]
@@ -112,15 +93,18 @@ class CreateOrUpdateEvents extends React.Component<ICreateOrUpdateEventsProps> {
               }
             </FormItem>
             <FormItem label={L('Дни недель')}  {...formItemLayout}>
-              {getFieldDecorator('WeekName', /*{ rules: rules.emailAddress }*/)
-              (<Select placeholder="Выберите дни недели"  style={{width: '100%'}} > 
-                {options.map(dateWeek => 
-                  <Select.Option key = {dateWeek.dayWeekNumber} value = {dateWeek.dayWeekNumber}> {dateWeek.dayWeekName} </Select.Option> )
+              
+              {getFieldDecorator('dateWeek', {initialValue:this.props.dateWeek|| [], valuePropName: 'option'} /*{ rules: rules.emailAddress }*/)
+              (<Select mode="multiple" placeholder="Выберите дни недели"  style={{width: '100%'}} > 
+               {options.map(dateWeek => 
+                  <Select.Option key = {dateWeek.id} value = {dateWeek.weekName} > {dateWeek.normalizedName} </Select.Option> )
                 }
-              </Select>)
+              </Select>
+              )
               }
             </FormItem>
           </TabPane>
+           
         </Tabs>
       </Modal>
     );

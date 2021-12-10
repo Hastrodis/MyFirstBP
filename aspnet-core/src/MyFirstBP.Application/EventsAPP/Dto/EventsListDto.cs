@@ -2,7 +2,6 @@
 using MyFirstBP.EventsEnt;
 using Abp.Application.Services.Dto;
 using System.Collections.Generic;
-using MyFirstBP.DateOfWeeks.Dto;
 
 namespace MyFirstBP.EventsAPP.Dto
 {
@@ -14,6 +13,6 @@ namespace MyFirstBP.EventsAPP.Dto
         public string Picture { get; set; }
         public int EvTypeID { get; set; }
         public string TypeName { get; set; }
-        public List<CreateDateOfWeek> DateWeeks { get; set; }
+        public List<DateOfWeek> DateWeeks { get; set; }
     }
 }

@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { inject, observer } from 'mobx-react';
 
-import { Button, Card, Col, Dropdown, Menu, Row, Modal, Table } from 'antd';
+import { Button, Card, Col, Dropdown, Menu, Row, Modal, Table, Tag } from 'antd';
 
 import AppComponentBase from '../../components/AppComponentBase';
 import { FormComponentProps } from 'antd/lib/form';
@@ -65,11 +65,11 @@ class Events extends AppComponentBase<IEventsProps, IEventsState> {
       if (entityDto.id === 0) {
         this.props.eventsStore.createEvents();
         await this.props.eventsStore.getAllEventType();
-        await this.props.eventsStore.getAllDateWeek();
+
       } else {
         await this.props.eventsStore.get(entityDto);
         await this.props.eventsStore.getAllEventType();
-        await this.props.eventsStore.getAllDateWeek();
+
       }
   
       this.setState({ eventsId: entityDto.id });
@@ -119,17 +119,23 @@ class Events extends AppComponentBase<IEventsProps, IEventsState> {
       this.formRef = formRef;
     };
   
-  
+    
     public render() {
+     
       const { events } = this.props.eventsStore;
+      console.log(events);
       const columns = [
         { title: L('ID'), dataIndex: 'id', key: 'id', width: 50, render: (text: string) => <div>{text}</div> },
         { title: L('Название мероприятия'), dataIndex: 'title', key: 'title', width: 150, render: (text: string) => <div>{text}</div> },
         { title: L('Описание'), dataIndex: 'description', key: 'description', width: 200, render: (text: string) => <div>{text}</div> },
         { title: L('Изображение'), dataIndex: 'picture', key: 'picture', width: 150, render: (text: string) => <div>{text}</div> },
-        { title: L('Тип события'), dataIndex: 'typeName', key: 'typeName', width: 100, render: (text: string) => ( <div>{text}</div>
-        ),
-         },
+        { title: L('Тип события'), dataIndex: 'typeName', key: 'typeName', width: 100, render: (text: string) =>  <div>{text}</div>},
+        { title: L('Дни недели'), dataIndex: 'dateWeek', key: 'dateWeek', width: 100, render: (text: string) =>  <div>{
+          events.items.map(
+            date =>
+            <Tag>{date.dateWeek }</Tag>
+            )  
+          }</div>},
         {
           title: L('Действия'),
           width: 150,

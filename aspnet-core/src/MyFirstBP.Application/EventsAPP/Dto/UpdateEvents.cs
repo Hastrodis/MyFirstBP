@@ -2,7 +2,6 @@
 using MyFirstBP.EventsEnt;
 using Abp.Application.Services.Dto;
 using System.Collections.Generic;
-using MyFirstBP.DateOfWeeks.Dto;
 
 namespace MyFirstBP.EventsAPP.Dto
 {
