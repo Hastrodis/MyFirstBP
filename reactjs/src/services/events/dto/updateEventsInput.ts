@@ -6,6 +6,8 @@ export default interface UpdateEventsInput {
     picture: string;
     evTypeID: string;
     id: number;
+    eventStart: string;
+    eventEnd: string;
     dateWeek: DateWeekModel[];
     
 }

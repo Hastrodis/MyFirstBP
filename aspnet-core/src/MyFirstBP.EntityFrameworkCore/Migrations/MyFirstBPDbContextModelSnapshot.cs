@@ -1513,6 +1513,12 @@ namespace MyFirstBP.Migrations
                     b.Property<int>("EvTypeID")
                         .HasColumnType("int");
 
+                    b.Property<TimeSpan>("EventEnd")
+                        .HasColumnType("time(6)");
+
+                    b.Property<TimeSpan>("EventStart")
+                        .HasColumnType("time(6)");
+
                     b.Property<string>("Picture")
                         .HasColumnType("longtext CHARACTER SET utf8mb4")
                         .HasMaxLength(65536);

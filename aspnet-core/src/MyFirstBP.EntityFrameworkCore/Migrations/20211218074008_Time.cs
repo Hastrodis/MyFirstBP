@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MyFirstBP.Migrations
 {
-    public partial class Clear : Migration
+    public partial class Time : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -792,6 +792,8 @@ namespace MyFirstBP.Migrations
                     Title = table.Column<string>(maxLength: 256, nullable: false),
                     Description = table.Column<string>(maxLength: 65536, nullable: true),
                     Picture = table.Column<string>(maxLength: 65536, nullable: true),
+                    EventStart = table.Column<TimeSpan>(nullable: false),
+                    EventEnd = table.Column<TimeSpan>(nullable: false),
                     EvTypeID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>

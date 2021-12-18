@@ -98,6 +98,7 @@ class Events extends AppComponentBase<IEventsProps, IEventsState> {
     handleCreate = () => {
       const form = this.formRef.props.form;
       form.validateFields(async (err: any, values: any) => {
+        console.log(values);
         if (err) {
           return;
         } else {
@@ -126,11 +127,13 @@ class Events extends AppComponentBase<IEventsProps, IEventsState> {
       console.log(events);
       const columns = [
         { title: L('ID'), dataIndex: 'id', key: 'id', width: 50, render: (text: string) => <div>{text}</div> },
-        { title: L('Название мероприятия'), dataIndex: 'title', key: 'title', width: 150, render: (text: string) => <div>{text}</div> },
-        { title: L('Описание'), dataIndex: 'description', key: 'description', width: 200, render: (text: string) => <div>{text}</div> },
+        { title: L('Название мероприятия'), dataIndex: 'title', key: 'title', width: 130, render: (text: string) => <div>{text}</div> },
+        { title: L('Описание'), dataIndex: 'description', key: 'description', width: 180, render: (text: string) => <div>{text}</div> },
         { title: L('Изображение'), dataIndex: 'picture', key: 'picture', width: 150, render: (text: string) => <div>{text}</div> },
         { title: L('Тип события'), dataIndex: 'typeName', key: 'typeName', width: 100, render: (text: string) =>  <div>{text}</div>},
-        { title: L('Дни недели'), dataIndex: 'dateWeek', key: 'dateWeek', width: 100, render: (text: string) =>  <div>{
+        { title: L('Время начала'), dataIndex: 'eventStart', key: 'eventStart', width: 80, render: (text: string) =>  <div>{text}</div>},
+        { title: L('Время окончания'), dataIndex: 'eventEnd', key: 'eventEnd', width: 80, render: (text: string) =>  <div>{text}</div>},
+        { title: L('Дни недели'), dataIndex: 'dateWeek', key: 'dateWeek', width: 80, render: (text: string) =>  <div>{
           events.items.map(
             date =>
             <Tag>{date.dateWeek }</Tag>
@@ -210,6 +213,7 @@ class Events extends AppComponentBase<IEventsProps, IEventsState> {
           <CreateOrUpdatesEvents
             wrappedComponentRef={this.saveFormRef}
             visible={this.state.modalVisible}
+            //events={this.props.eventsStore.eventsModel}
             eventType={this.props.eventsStore.allEventType}
             dateWeek= {this.props.eventsStore.allDateWeek}
             onCancel={() =>

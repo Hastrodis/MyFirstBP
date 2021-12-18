@@ -3,5 +3,7 @@ export default class CreateEventsInput {
     description!: string;
     picture!: string;
     evTypeID!: string;
+    eventStart!: string;
+    eventEnd!: string;
     dateWeek!: number[];
 }

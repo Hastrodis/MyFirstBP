@@ -6,5 +6,7 @@ export default class GetEventsOutput {
     picture!: string;
     evTypeID!: string;
     id!: number;
+    eventStart!: string;
+    eventEnd!: string;
     dateWeek!: DateWeekModel[];
 }

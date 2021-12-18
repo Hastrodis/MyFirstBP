@@ -37,6 +37,8 @@ class EventsStore {
             title: '',
             description: '',
             picture: '',
+            eventStart: '',
+            eventEnd: '',
             evTypeID: '',
             dateWeek: [ {id: 0, weekName: 0, eventId: 0}]
         }

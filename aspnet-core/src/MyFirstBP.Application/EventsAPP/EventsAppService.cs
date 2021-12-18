@@ -40,6 +40,8 @@ namespace MyFirstBP.EventsAPP
                     Title = input.Title,
                     Description = input.Description,
                     Picture = input.Picture,
+                    EventStart = input.EventStart,
+                    EventEnd = input.EventEnd,
                     EvTypeID = input.EvTypeID,
                 };
                 _eventRepository.Insert(events);
@@ -52,8 +54,7 @@ namespace MyFirstBP.EventsAPP
                     };
                     _dateWeekRepository.Insert(dateWeek);
                 }*/
-            //}
-            
+            //} 
         }
 
         public void Delete(int id)
@@ -73,17 +74,11 @@ namespace MyFirstBP.EventsAPP
             {
                 throw new UserFriendlyException("Мероприятие не найден");
             }
-
-            events = new EventTab
-            {
-                Title = input.Title,
-                Description = input.Description,
-                Picture = input.Picture,
-                EvTypeID = input.EvTypeID
-            };
             events.Title = input.Title;
             events.Description = input.Description;
             events.Picture = input.Picture;
+            events.EventStart = input.EventStart;
+            events.EventEnd = input.EventEnd;
             events.EvTypeID = input.EvTypeID;
         }
 
@@ -102,19 +97,20 @@ namespace MyFirstBP.EventsAPP
                            .GetAll()
                            .Where(t => t.EventID == e.Id)
                            .ToListAsync();
+                var weekEvents = new List<DateOfWeek>();
+                foreach (var date in dateWeek)
+                {
+                    weekEvents.Add(new DateOfWeek()
+                    {
+                        Id = date.Id,
+                        WeekName = date.WeekName,
+                        EventID = e.Id,
+                    }
+                    );
+                }
                 foreach (var i in eventType)
                 {
-                    var weekEvents = new List<DateOfWeek>();
-                    foreach (var date in dateWeek)
-                    {
-                        weekEvents.Add(new DateOfWeek()
-                        {
-                            Id = date.Id,
-                            WeekName = date.WeekName,
-                            EventID = e.Id,
-                        }
-                        );
-                    }
+                    
                     if (e.EvTypeID == i.Id)
                     {
                         eventsAll.Add(new EventsListDto()
@@ -125,6 +121,8 @@ namespace MyFirstBP.EventsAPP
                             Picture = e.Picture,
                             EvTypeID = e.EvTypeID,
                             TypeName = i.TypeName,
+                            EventStart = e.EventStart,
+                            EventEnd = e.EventEnd,
                             DateWeeks = weekEvents,
                         });
                     }
@@ -174,6 +172,8 @@ namespace MyFirstBP.EventsAPP
                             Picture = e.Picture,
                             EvTypeID = e.EvTypeID,
                             TypeName = i.TypeName,
+                            EventStart = e.EventStart,
+                            EventEnd = e.EventEnd,
                             DateWeeks = weekEvents,
                         });
                     }

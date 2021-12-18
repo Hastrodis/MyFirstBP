@@ -2,6 +2,7 @@
 using MyFirstBP.EventsEnt;
 using Abp.Application.Services.Dto;
 using System.Collections.Generic;
+using System;
 
 namespace MyFirstBP.EventsAPP.Dto
 {
@@ -13,6 +14,8 @@ namespace MyFirstBP.EventsAPP.Dto
         public string Picture { get; set; }
         public int EvTypeID { get; set; }
         public string TypeName { get; set; }
+        public TimeSpan EventStart { get; set; }
+        public TimeSpan EventEnd { get; set; }
         public List<DateOfWeek> DateWeeks { get; set; }
     }
 }

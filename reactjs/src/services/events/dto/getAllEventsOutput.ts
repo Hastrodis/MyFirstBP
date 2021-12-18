@@ -6,5 +6,7 @@ export interface GetAllEventsOutput {
     picture: string;
     evTypeID: string;
     id: number;
+    eventStart: string;
+    eventEnd: string;
     dateWeek: DateWeekModel[];
 }
