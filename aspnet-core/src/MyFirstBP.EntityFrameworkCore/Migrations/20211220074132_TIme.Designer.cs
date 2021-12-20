@@ -9,8 +9,8 @@ using MyFirstBP.EntityFrameworkCore;
 namespace MyFirstBP.Migrations
 {
     [DbContext(typeof(MyFirstBPDbContext))]
-    [Migration("20211218074008_Time")]
-    partial class Time
+    [Migration("20211220074132_TIme")]
+    partial class TIme
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -1515,11 +1515,11 @@ namespace MyFirstBP.Migrations
                     b.Property<int>("EvTypeID")
                         .HasColumnType("int");
 
-                    b.Property<TimeSpan>("EventEnd")
-                        .HasColumnType("time(6)");
+                    b.Property<DateTime>("EventEnd")
+                        .HasColumnType("datetime(6)");
 
-                    b.Property<TimeSpan>("EventStart")
-                        .HasColumnType("time(6)");
+                    b.Property<DateTime>("EventStart")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Picture")
                         .HasColumnType("longtext CHARACTER SET utf8mb4")

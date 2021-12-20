@@ -28,33 +28,26 @@ namespace MyFirstBP.EventsAPP
 
         public void Create(CreateEvents input)
         {
-            /*Random rnd = new Random();
-            int idrand = rnd.Next(0, 65000);
-            if (_eventRepository.FirstOrDefault(t => t.Id == idrand) != null)
-                idrand = rnd.Next(0, 65000); 
-            else
-            {*/
-                var events = new EventTab
+            var events = new EventTab
+            {
+                Title = input.Title,
+                Description = input.Description,
+                Picture = input.Picture,
+                EventStart = input.EventStart,
+                EventEnd = input.EventEnd,
+                EvTypeID = input.EvTypeID,
+            };
+            var lastId = _eventRepository.InsertAndGetId(events);
+
+           /* foreach (var e in input.DateWeeks)
+            {
+                var dateWeek = new DateOfWeek
                 {
-                    //Id = idrand,
-                    Title = input.Title,
-                    Description = input.Description,
-                    Picture = input.Picture,
-                    EventStart = input.EventStart,
-                    EventEnd = input.EventEnd,
-                    EvTypeID = input.EvTypeID,
+                    EventID = lastId,
+                    WeekName = e.WeekName
                 };
-                _eventRepository.Insert(events);
-                /*foreach (var e in input.DateWeeks)
-                {
-                    var dateWeek = new DateOfWeek
-                    {
-                        EventID = idrand,
-                        WeekName = e.WeekName
-                    };
-                    _dateWeekRepository.Insert(dateWeek);
-                }*/
-            //} 
+                _dateWeekRepository.Insert(dateWeek);
+            }*/
         }
 
         public void Delete(int id)

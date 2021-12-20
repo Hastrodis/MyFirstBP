@@ -14,8 +14,8 @@ namespace MyFirstBP.EventsAPP.Dto
         public string Picture { get; set; }
         public int EvTypeID { get; set; }
         public string TypeName { get; set; }
-        public TimeSpan EventStart { get; set; }
-        public TimeSpan EventEnd { get; set; }
+        public DateTime EventStart { get; set; }
+        public DateTime EventEnd { get; set; }
         public List<DateOfWeek> DateWeeks { get; set; }
     }
 }

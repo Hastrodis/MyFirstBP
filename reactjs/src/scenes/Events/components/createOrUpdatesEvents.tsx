@@ -9,6 +9,7 @@ import { L } from '../../../lib/abpUtility';
 import TextArea from 'antd/lib/input/TextArea';
 import { GetAllEventTypeOutput } from '../../../services/eventType/dto/getAllEventTypeOutput';
 import { GetAllDateWeek } from '../../../services/events/dto/getAllDateWeek';
+import moment from 'moment';
 //import EventsModel from '../../../models/Event/eventsModel';
 //import NormalizeValueDateWeek from '../../../services/events/dto/normalizeValueDateWeek';
 //import { values } from 'mobx';
@@ -68,7 +69,7 @@ class CreateOrUpdateEvents extends React.Component<ICreateOrUpdateEventsProps> {
       {"weekName": 6, "id": 0, "eventId":0, "normalizedName": "СБ"},
       {"weekName": 7, "id": 0, "eventId":0, "normalizedName": "ВС"},
     ]
-    const timeFormat = 'HH:mm';
+    const format = 'HH:mm';
 
     return (
       <Modal visible={visible} destroyOnClose cancelText={L('Cancel')} okText={L('OK')} onCancel={onCancel} onOk={onCreate} title={'Мероприятие'}>
@@ -93,13 +94,12 @@ class CreateOrUpdateEvents extends React.Component<ICreateOrUpdateEventsProps> {
               }
             </FormItem>
             <FormItem label={L('Время начала')} {...formItemLayout}>
-              {getFieldDecorator('eventStart', /*{ rules: rules.userName }*/)(<TimePicker format = {timeFormat} />)}
+              {getFieldDecorator('eventStart', {initialValue : moment('12:00', format)  } /*{ rules: rules.userName }*/)(<TimePicker  />)}
             </FormItem>
             <FormItem label={L('Время окончания')} {...formItemLayout}>
-              {getFieldDecorator('eventEnd', /*{ rules: rules.userName }*/)(<TimePicker format = {timeFormat} />)}
+              {getFieldDecorator('eventEnd', /*{ rules: rules.userName }*/)(<TimePicker format = {format}  />)}
             </FormItem>
             <FormItem label={L('Дни недель')}  {...formItemLayout}>
-              
               {getFieldDecorator('dateWeek', {initialValue:this.props.dateWeek|| [], valuePropName: 'option'} /*{ rules: rules.emailAddress }*/)
               (<Select mode="multiple" placeholder="Выберите дни недели"  style={{width: '100%'}} > 
                {options.map(dateWeek => 

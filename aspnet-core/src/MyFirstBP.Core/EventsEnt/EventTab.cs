@@ -17,10 +17,10 @@ namespace MyFirstBP.EventsEnt
 
         [StringLength(64 * 1024)]
         public string Picture { get; set; }
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{HH:mm}")]
-        public TimeSpan EventStart { get; set; }
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{HH:mm}")]
-        public TimeSpan EventEnd { get; set; }
+        [DataType(DataType.Time), DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:HH:mm}")]
+        public DateTime EventStart { get; set; }
+        [DataType(DataType.Time), DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:HH:mm}")]
+        public DateTime EventEnd { get; set; }
         public int EvTypeID { get; set; }
         [ForeignKey("EvTypeID")]
         public EventType EventType { get; set; }

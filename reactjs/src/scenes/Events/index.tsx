@@ -69,7 +69,6 @@ class Events extends AppComponentBase<IEventsProps, IEventsState> {
       } else {
         await this.props.eventsStore.get(entityDto);
         await this.props.eventsStore.getAllEventType();
-
       }
   
       this.setState({ eventsId: entityDto.id });
@@ -94,16 +93,29 @@ class Events extends AppComponentBase<IEventsProps, IEventsState> {
         onCancel() {},
       });
     }
-  
+
     handleCreate = () => {
       const form = this.formRef.props.form;
       form.validateFields(async (err: any, values: any) => {
-        console.log(values);
+        
         if (err) {
           return;
         } else {
           if (this.state.eventsId === 0) {
-            await this.props.eventsStore.create(values);
+            //var dateStore = values.dateWeek.length 
+            
+            var tranzitValue = {
+              title: values.title,
+              description: values.description,
+              evTypeID: values.evTypeID,
+              eventEnd: values.eventEnd,
+              eventStart: values.eventStart,
+              picture: values.picture,
+              dateWeek: values.dateWeek,
+            }
+            console.log(tranzitValue);
+            
+            await this.props.eventsStore.create(tranzitValue);
           } else {
             await this.props.eventsStore.update({ id: this.state.eventsId, ...values });
           }
