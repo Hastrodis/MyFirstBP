@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MyFirstBP.Migrations
 {
-    public partial class TIme : Migration
+    public partial class Time : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

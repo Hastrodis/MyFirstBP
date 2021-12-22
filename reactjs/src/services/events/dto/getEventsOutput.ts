@@ -8,5 +8,5 @@ export default class GetEventsOutput {
     id!: number;
     eventStart!: string;
     eventEnd!: string;
-    dateWeek!: DateWeekModel[];
+    dateWeeks!: DateWeekModel[];
 }

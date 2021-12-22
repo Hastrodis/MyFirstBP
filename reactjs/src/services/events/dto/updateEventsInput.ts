@@ -8,6 +8,6 @@ export default interface UpdateEventsInput {
     id: number;
     eventStart: string;
     eventEnd: string;
-    dateWeek: DateWeekModel[];
+    dateWeeks: DateWeekModel[];
     
 }

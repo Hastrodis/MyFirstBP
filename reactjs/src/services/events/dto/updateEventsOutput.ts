@@ -1,3 +1,5 @@
+import DateWeekModel from "../../../models/Event/dateWeekModel";
+
 export interface UpdateEventsOutput {
     title: string;
     description: string;
@@ -6,4 +8,5 @@ export interface UpdateEventsOutput {
     eventStart: string;
     eventEnd: string;
     id: number;
+    dateWeeks: DateWeekModel[];
 }

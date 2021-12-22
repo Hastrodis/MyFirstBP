@@ -9,7 +9,7 @@ import { L } from '../../../lib/abpUtility';
 import TextArea from 'antd/lib/input/TextArea';
 import { GetAllEventTypeOutput } from '../../../services/eventType/dto/getAllEventTypeOutput';
 import { GetAllDateWeek } from '../../../services/events/dto/getAllDateWeek';
-import moment from 'moment';
+//import moment from 'moment';
 //import EventsModel from '../../../models/Event/eventsModel';
 //import NormalizeValueDateWeek from '../../../services/events/dto/normalizeValueDateWeek';
 //import { values } from 'mobx';
@@ -23,6 +23,7 @@ export interface ICreateOrUpdateEventsProps extends FormComponentProps {
   onCancel: () => void;
   modalType: string;
   onCreate: () => void;
+  onUpdate: number;
   //events: EventsModel[];
   eventType: GetAllEventTypeOutput[];
   dateWeek: GetAllDateWeek[];
@@ -37,7 +38,7 @@ class CreateOrUpdateEvents extends React.Component<ICreateOrUpdateEventsProps> {
  
   render() {
     //const { normalizedNamle } = this.props;
-
+    
     const formItemLayout = {
       labelCol: {
         xs: { span: 6 },
@@ -59,7 +60,7 @@ class CreateOrUpdateEvents extends React.Component<ICreateOrUpdateEventsProps> {
 
     const { getFieldDecorator } = this.props.form;
     const { visible, onCancel, onCreate } = this.props;
-
+    console.log(this.props.onUpdate);
     let options: GetAllDateWeek[] = [
       {"weekName": 1, "id": 0, "eventId":0, "normalizedName": "ПН"},
       {"weekName": 2, "id": 0, "eventId":0, "normalizedName": "ВТ"},
@@ -94,7 +95,7 @@ class CreateOrUpdateEvents extends React.Component<ICreateOrUpdateEventsProps> {
               }
             </FormItem>
             <FormItem label={L('Время начала')} {...formItemLayout}>
-              {getFieldDecorator('eventStart', {initialValue : moment('12:00', format)  } /*{ rules: rules.userName }*/)(<TimePicker  />)}
+              {getFieldDecorator('eventStart', {  } /*{ rules: rules.userName }*/)(<TimePicker format = {format} allowClear = {true} />)}
             </FormItem>
             <FormItem label={L('Время окончания')} {...formItemLayout}>
               {getFieldDecorator('eventEnd', /*{ rules: rules.userName }*/)(<TimePicker format = {format}  />)}

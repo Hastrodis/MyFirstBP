@@ -39,7 +39,7 @@ namespace MyFirstBP.EventsAPP
             };
             var lastId = _eventRepository.InsertAndGetId(events);
 
-           /* foreach (var e in input.DateWeeks)
+            foreach (var e in input.DateWeeks)
             {
                 var dateWeek = new DateOfWeek
                 {
@@ -47,7 +47,7 @@ namespace MyFirstBP.EventsAPP
                     WeekName = e.WeekName
                 };
                 _dateWeekRepository.Insert(dateWeek);
-            }*/
+            }
         }
 
         public void Delete(int id)
@@ -73,6 +73,20 @@ namespace MyFirstBP.EventsAPP
             events.EventStart = input.EventStart;
             events.EventEnd = input.EventEnd;
             events.EvTypeID = input.EvTypeID;
+            var dateWeek = _dateWeekRepository.GetAll().Where(t => t.EventID == input.Id).ToList();
+            foreach (var day in dateWeek)
+            {
+                _dateWeekRepository.Delete(day.Id);
+            }
+            foreach (var e in input.DateWeeks)
+            {
+                var createDateWeek = new DateOfWeek
+                {
+                    EventID = input.Id,
+                    WeekName = e.WeekName
+                };
+                _dateWeekRepository.Insert(createDateWeek);
+            }
         }
 
         public async Task<ListResultDto<EventsListDto>> GetAll()

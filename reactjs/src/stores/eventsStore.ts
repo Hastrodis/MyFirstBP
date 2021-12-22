@@ -14,7 +14,7 @@ import { PagedEventsResultRequestDto } from '../services/events/dto/pagedEventsR
 import { GetAllEventTypeOutput } from '../services/eventType/dto/getAllEventTypeOutput';
 import { GetAllDateWeek } from '../services/events/dto/getAllDateWeek';
 import DateWeekModel from '../models/Event/dateWeekModel';
-import NormalizeValueDateWeek from '../services/events/dto/normalizeValueDateWeek';
+//import NormalizeValueDateWeek from '../services/events/dto/normalizeValueDateWeek';
 
 
 class EventsStore {
@@ -23,7 +23,7 @@ class EventsStore {
     @observable dateWeekModel: DateWeekModel = new DateWeekModel();
     @observable allEventType: GetAllEventTypeOutput[] = [];
     @observable allDateWeek: GetAllDateWeek[] = [];
-    @observable normalizedName: NormalizeValueDateWeek[] = [];
+    //@observable normalizedName: NormalizeValueDateWeek[] = [];
 
     @action
     async create(createEventsInput: CreateEventsInput) {
@@ -40,7 +40,7 @@ class EventsStore {
             eventStart: '',
             eventEnd: '',
             evTypeID: '',
-            dateWeek: [ {id: 0, weekName: 0, eventId: 0}]
+            dateWeeks: [ {id: 0, weekName: 0, eventId: 0}]
         }
     }
     

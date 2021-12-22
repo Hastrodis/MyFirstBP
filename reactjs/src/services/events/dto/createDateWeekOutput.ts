@@ -1,5 +1,5 @@
 export default interface CreateDateWeekOutput {
-    weekname: number;
+    weekName: number;
     eventId: number;
     id: number;
 }

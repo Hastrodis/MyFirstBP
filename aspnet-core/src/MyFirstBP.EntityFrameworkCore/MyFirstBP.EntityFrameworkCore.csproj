@@ -25,6 +25,8 @@
     <Compile Remove="Migrations\20211218074008_Time.Designer.cs" />
     <Compile Remove="Migrations\20211220074010_Time.cs" />
     <Compile Remove="Migrations\20211220074010_Time.Designer.cs" />
+    <Compile Remove="Migrations\20211220074132_TIme.cs" />
+    <Compile Remove="Migrations\20211220074132_TIme.Designer.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.4" />

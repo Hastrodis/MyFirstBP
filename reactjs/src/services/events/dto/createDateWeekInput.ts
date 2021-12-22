@@ -1,5 +1,5 @@
 export default class CreateDateWeekInput {
-    weekname!: number;
+    weekName!: number;
     eventId!: number;
     id!: number;
 }

@@ -1,3 +1,7 @@
+//import DateWeekModel from "../../../models/Event/dateWeekModel";
+
+import CreateDateWeekInput from "./createDateWeekInput";
+
 export default class CreateEventsInput {
     title!: string;
     description!: string;
@@ -5,5 +9,5 @@ export default class CreateEventsInput {
     evTypeID!: string;
     eventStart!: string;
     eventEnd!: string;
-    dateWeek!: number[];
+    dateWeeks!: CreateDateWeekInput[];
 }

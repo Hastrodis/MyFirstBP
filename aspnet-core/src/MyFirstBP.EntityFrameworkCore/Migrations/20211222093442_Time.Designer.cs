@@ -9,8 +9,8 @@ using MyFirstBP.EntityFrameworkCore;
 namespace MyFirstBP.Migrations
 {
     [DbContext(typeof(MyFirstBPDbContext))]
-    [Migration("20211220074132_TIme")]
-    partial class TIme
+    [Migration("20211222093442_Time")]
+    partial class Time
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
