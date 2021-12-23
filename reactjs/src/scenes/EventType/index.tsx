@@ -33,7 +33,6 @@ const confirm = Modal.confirm;
 class EventType extends AppComponentBase<IEventTypeProps, IEventTypeState> {
     formRef: any;
 
-
     state = {
       modalVisible: false,
       maxResultCount: 10,
@@ -65,6 +64,7 @@ class EventType extends AppComponentBase<IEventTypeProps, IEventTypeState> {
         this.props.eventTypeStore.createEventType();
       } else {
         await this.props.eventTypeStore.get(entityDto);
+        await this.props.eventTypeStore.getAllEventType();
       }
   
       this.setState({ eventTypeId: entityDto.id });
@@ -193,12 +193,13 @@ class EventType extends AppComponentBase<IEventTypeProps, IEventTypeState> {
           <CreateOrUpdateEventType
             wrappedComponentRef={this.saveFormRef}
             visible={this.state.modalVisible}
+            eventTypeEdit={this.props.eventTypeStore.allEventType}
             onCancel={() =>
               this.setState({
                 modalVisible: false,
               })
             }
-            modalType={this.state.eventTypeId === 0 ? 'edit' : 'create'}
+            modalType={this.state.eventTypeId === 0 ? 0 : this.state.eventTypeId}
             onCreate={this.handleCreate}
           />
           

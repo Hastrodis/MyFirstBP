@@ -6,15 +6,24 @@ import { FormComponentProps } from 'antd/lib/form';
 import FormItem from 'antd/lib/form/FormItem';
 import { L } from '../../../lib/abpUtility';
 import rules from './createOrUpdateEvenType.validation';
+import { GetAllEventTypeOutput } from '../../../services/eventType/dto/getAllEventTypeOutput';
 
 export interface ICreateOrUpdateEvetTypeProps extends FormComponentProps {
   visible: boolean;
-  modalType: string;
+  modalType: number;
+  eventTypeEdit: GetAllEventTypeOutput[];
   onCreate: () => void;
   onCancel: () => void;
 }
 
 class CreateOrUpdateEventType extends React.Component<ICreateOrUpdateEvetTypeProps> {
+
+  getOneRecord()
+  {
+    var one = this.props.eventTypeEdit.find(index => index.id === this.props.modalType)
+    return one
+  }
+
   render() {
     const formItemLayout = {
       labelCol: {
@@ -35,15 +44,13 @@ class CreateOrUpdateEventType extends React.Component<ICreateOrUpdateEvetTypePro
       },
     };
 
-    
     const { getFieldDecorator } = this.props.form;
     const { visible, onCancel, onCreate } = this.props;
-
     return (
       <Modal visible={visible} onCancel={onCancel} onOk={onCreate} title={L('Типы мероприятий')} width={550}>
         <Form>
           <FormItem label={L('Мероприятие')} {...formItemLayout}>
-            {getFieldDecorator('typeName', { rules: rules.typeName })(<Input />)}
+            {getFieldDecorator('typeName', { initialValue : this.getOneRecord()?.typeName, rules: rules.typeName })(<Input  />)}
           </FormItem>
         </Form>
       </Modal>

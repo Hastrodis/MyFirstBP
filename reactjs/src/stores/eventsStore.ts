@@ -21,6 +21,7 @@ class EventsStore {
     @observable events!: PagedResultDto<GetEventsOutput>;
     @observable eventsModel: EventsModel = new EventsModel();
     @observable dateWeekModel: DateWeekModel = new DateWeekModel();
+    @observable eventEdit: GetAllEventsOutput[] = [];
     @observable allEventType: GetAllEventTypeOutput[] = [];
     @observable allDateWeek: GetAllDateWeek[] = [];
     //@observable normalizedName: NormalizeValueDateWeek[] = [];
@@ -82,6 +83,11 @@ class EventsStore {
         this.allEventType = result;
     }
 
+    @action
+    async getEventEdit() {
+        var result = await eventsService.getEventEdit();
+        this.eventEdit = result;
+    }
 
     @action
     async getAll(pagedFilterAndSortedRequest: PagedEventsResultRequestDto) {

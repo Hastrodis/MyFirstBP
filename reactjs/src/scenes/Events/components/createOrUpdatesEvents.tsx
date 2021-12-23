@@ -9,22 +9,18 @@ import { L } from '../../../lib/abpUtility';
 import TextArea from 'antd/lib/input/TextArea';
 import { GetAllEventTypeOutput } from '../../../services/eventType/dto/getAllEventTypeOutput';
 import { GetAllDateWeek } from '../../../services/events/dto/getAllDateWeek';
-//import moment from 'moment';
-//import EventsModel from '../../../models/Event/eventsModel';
-//import NormalizeValueDateWeek from '../../../services/events/dto/normalizeValueDateWeek';
-//import { values } from 'mobx';
-//import { GetDateWeek } from '../../../services/events/dto/getDateWeek';
-//import rules from './createOrUpdateEvents.validation';
+import { GetAllEventsOutput } from '../../../services/events/dto/getAllEventsOutput';
+import rules from './createOrUpdateEvents.validation';
+import moment from 'moment';
 
 const TabPane = Tabs.TabPane;
 
 export interface ICreateOrUpdateEventsProps extends FormComponentProps {
   visible: boolean;
   onCancel: () => void;
-  modalType: string;
+  modalType: number;
   onCreate: () => void;
-  onUpdate: number;
-  //events: EventsModel[];
+  events: GetAllEventsOutput[];
   eventType: GetAllEventTypeOutput[];
   dateWeek: GetAllDateWeek[];
  // normalizedNamle: NormalizeValueDateWeek[];
@@ -35,9 +31,13 @@ class CreateOrUpdateEvents extends React.Component<ICreateOrUpdateEventsProps> {
     confirmDirty: false,
   };
 
+  getOneRecord()
+  {
+    var one = this.props.events.find(index => index.id === this.props.modalType)
+    return one
+  }
  
   render() {
-    //const { normalizedNamle } = this.props;
     
     const formItemLayout = {
       labelCol: {
@@ -60,7 +60,6 @@ class CreateOrUpdateEvents extends React.Component<ICreateOrUpdateEventsProps> {
 
     const { getFieldDecorator } = this.props.form;
     const { visible, onCancel, onCreate } = this.props;
-    console.log(this.props.onUpdate);
     let options: GetAllDateWeek[] = [
       {"weekName": 1, "id": 0, "eventId":0, "normalizedName": "ПН"},
       {"weekName": 2, "id": 0, "eventId":0, "normalizedName": "ВТ"},
@@ -71,22 +70,21 @@ class CreateOrUpdateEvents extends React.Component<ICreateOrUpdateEventsProps> {
       {"weekName": 7, "id": 0, "eventId":0, "normalizedName": "ВС"},
     ]
     const format = 'HH:mm';
-
     return (
       <Modal visible={visible} destroyOnClose cancelText={L('Cancel')} okText={L('OK')} onCancel={onCancel} onOk={onCreate} title={'Мероприятие'}>
         <Tabs defaultActiveKey={'userInfo'} size={'small'} tabBarGutter={64}>
           <TabPane tab={'Мероприятие'} key={'events'}>
             <FormItem label={L('Заголовок')} {...formItemLayout}>
-              {getFieldDecorator('title', /*{ rules: rules.name }*/)( <Input/>)}
+              {getFieldDecorator('title',  { initialValue: this.getOneRecord()?.title, rules: rules.title } )( <Input/>)}
             </FormItem>
             <FormItem label={L('Описание')} {...formItemLayout}>
-              {getFieldDecorator('description', /*{ rules: rules.surname }*/)(<TextArea />)}
+              {getFieldDecorator('description', { initialValue: this.getOneRecord()?.description })(<TextArea />)}
             </FormItem>
             <FormItem label={L('Изображение')} {...formItemLayout}>
-              {getFieldDecorator('picture', /*{ rules: rules.userName }*/)(<Input />)}
+              {getFieldDecorator('picture', { initialValue: this.getOneRecord()?.picture })(<Input />)}
             </FormItem>            
             <FormItem label={L('Тип мероприятия')} {...formItemLayout}>
-              {getFieldDecorator('evTypeID', /*{ rules: rules.emailAddress }*/)
+              {getFieldDecorator('evTypeID', { initialValue: this.getOneRecord()?.evTypeID, rules: rules.evTypeID })
               (<Select placeholder="Выберите тип мероприятия" style={{width: '100%'}} > 
                 {this.props.eventType.map(typeName => 
                   <Select.Option key = {typeName.id} value = {typeName.id}> {typeName.typeName} </Select.Option> )
@@ -95,13 +93,13 @@ class CreateOrUpdateEvents extends React.Component<ICreateOrUpdateEventsProps> {
               }
             </FormItem>
             <FormItem label={L('Время начала')} {...formItemLayout}>
-              {getFieldDecorator('eventStart', {  } /*{ rules: rules.userName }*/)(<TimePicker format = {format} allowClear = {true} />)}
+              {getFieldDecorator('eventStart', { initialValue: moment(this.getOneRecord()?.eventStart), rules: rules.time } )(<TimePicker format = {format} />)}
             </FormItem>
             <FormItem label={L('Время окончания')} {...formItemLayout}>
-              {getFieldDecorator('eventEnd', /*{ rules: rules.userName }*/)(<TimePicker format = {format}  />)}
+              {getFieldDecorator('eventEnd', { initialValue: moment(this.getOneRecord()?.eventEnd), rules: rules.time })(<TimePicker format = {format} />)}
             </FormItem>
             <FormItem label={L('Дни недель')}  {...formItemLayout}>
-              {getFieldDecorator('dateWeek', {initialValue:this.props.dateWeek|| [], valuePropName: 'option'} /*{ rules: rules.emailAddress }*/)
+              {getFieldDecorator('dateWeek',  { initialValue: this.getOneRecord()?.dateWeeks.map(date => date.weekName), rules: rules.dateWeek })
               (<Select mode="multiple" placeholder="Выберите дни недели"  style={{width: '100%'}} > 
                {options.map(dateWeek => 
                   <Select.Option key = {dateWeek.id} value = {dateWeek.weekName} > {dateWeek.normalizedName} </Select.Option> )

@@ -13,6 +13,7 @@ import UpdateEventTypeInput from '../services/eventType/dto/updateEventTypeInput
 class EventTypeStore {
     @observable eventType!: PagedResultDto<GetAllEventTypeOutput>;
     @observable eventTypeModel: EventTypeModel = new EventTypeModel();
+        @observable allEventType: GetAllEventTypeOutput[] = [];
 
     @action
     async create(createEventTypeInput: CreateEventTypeInput) {
@@ -36,6 +37,12 @@ class EventTypeStore {
             return (x = updateEventTypeInput);
           });
       }
+    
+      @action
+      async getAllEventType() {
+          var result = await eventTypeService.getAllEventType();
+          this.allEventType = result;
+      }    
 
     @action
     async get(entityDto: EntityDto) {

@@ -69,6 +69,7 @@ class Events extends AppComponentBase<IEventsProps, IEventsState> {
 
       } else {
         await this.props.eventsStore.get(entityDto);
+        await this.props.eventsStore.getEventEdit();
         await this.props.eventsStore.getAllEventType();
       }
   
@@ -159,7 +160,7 @@ class Events extends AppComponentBase<IEventsProps, IEventsState> {
         { title: L('Описание'), dataIndex: 'description', key: 'description', width: 180, render: (text: string) => <div>{text}</div> },
         { title: L('Изображение'), dataIndex: 'picture', key: 'picture', width: 150, render: (text: string) => <div>{text}</div> },
         { title: L('Тип события'), dataIndex: 'typeName', key: 'typeName', width: 100, render: (text: string) =>  <div>{text}</div>},
-        { title: L('Время начала'), dataIndex: 'eventStart', key: 'eventStart', width: 80, render: (text: string) =>  <div>{(text)}</div>},
+        { title: L('Время начала'), dataIndex: 'eventStart', key: 'eventStart', width: 80, render: (text: string) =>  <div>{text}</div>},
         { title: L('Время окончания'), dataIndex: 'eventEnd', key: 'eventEnd', width: 80, render: (text: string) =>  <div>{text}</div>},
         { title: L('Дни недели'), dataIndex: 'dateWeeks', key: 'dateWeeks', width: 80, render: (text: DateWeekModel[]) =>  <div>{
           text.map(
@@ -241,7 +242,7 @@ class Events extends AppComponentBase<IEventsProps, IEventsState> {
           <CreateOrUpdatesEvents
             wrappedComponentRef={this.saveFormRef}
             visible={this.state.modalVisible}
-            //events={this.props.eventsStore.eventsModel}
+            events={this.props.eventsStore.eventEdit}
             eventType={this.props.eventsStore.allEventType}
             dateWeek= {this.props.eventsStore.allDateWeek}
             onCancel={() =>
@@ -249,8 +250,7 @@ class Events extends AppComponentBase<IEventsProps, IEventsState> {
                 modalVisible: false,
               })
             }
-            modalType={this.state.eventsId === 0 ? 'edit' : 'create'}
-            onUpdate={this.state.eventsId === 0 ? 0 : this.state.eventsId}
+            modalType={this.state.eventsId === 0 ? 0 : this.state.eventsId}
             onCreate={this.handleCreate}
           /> 
           
