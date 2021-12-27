@@ -9,8 +9,8 @@ using MyFirstBP.EntityFrameworkCore;
 namespace MyFirstBP.Migrations
 {
     [DbContext(typeof(MyFirstBPDbContext))]
-    [Migration("20211222093442_Time")]
-    partial class Time
+    [Migration("20211226030631_TimeAndImage")]
+    partial class TimeAndImage
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -1522,8 +1522,7 @@ namespace MyFirstBP.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Picture")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4")
-                        .HasMaxLength(65536);
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("Title")
                         .IsRequired()

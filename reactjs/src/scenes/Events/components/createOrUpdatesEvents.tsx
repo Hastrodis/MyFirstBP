@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Form, Input, Modal, Select, Tabs, TimePicker } from 'antd';
+import { Form, Input, message, Modal, Select, Tabs, TimePicker } from 'antd';
 
 
 import { FormComponentProps } from 'antd/lib/form';
@@ -36,7 +36,43 @@ class CreateOrUpdateEvents extends React.Component<ICreateOrUpdateEventsProps> {
     var one = this.props.events.find(index => index.id === this.props.modalType)
     return one
   }
- 
+  
+  handleFileRead = async (event: any) => {
+    const file = event.target.files[0];
+    if (file === undefined) {  }
+    else{
+      if ((file.size/1024)/1024 > 2) {
+        message.error('Слишом большой файл');
+
+      }
+      else {
+        const base64 = await this.convertBase64(file);
+        this.props.form.setFieldsValue({tranzit: base64});
+      }
+    }
+  }
+
+  checkTime = () => {
+    const startTime = this.props.form.getFieldValue('eventStart')
+    const endTime = this.props.form.getFieldValue('eventStart')
+    console.log(startTime.hour)
+    if (startTime.hour < endTime.hour)
+      console.log("ЛУЛ")
+  }
+
+  convertBase64 = (file:any) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file)
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      }
+      fileReader.onerror = (error) => {
+        reject(error);
+      }
+    })
+  }
+
   render() {
     
     const formItemLayout = {
@@ -81,14 +117,14 @@ class CreateOrUpdateEvents extends React.Component<ICreateOrUpdateEventsProps> {
               {getFieldDecorator('description', { initialValue: this.getOneRecord()?.description })(<TextArea />)}
             </FormItem>
             <FormItem label={L('Изображение')} {...formItemLayout}>
-              {getFieldDecorator('picture', { initialValue: this.getOneRecord()?.picture })(<Input />)}
+              {getFieldDecorator('picture')(
+              < Input accept='.png, .jpg' type='file' onChange={e => this.handleFileRead(e)} />)}
             </FormItem>            
             <FormItem label={L('Тип мероприятия')} {...formItemLayout}>
               {getFieldDecorator('evTypeID', { initialValue: this.getOneRecord()?.evTypeID, rules: rules.evTypeID })
               (<Select placeholder="Выберите тип мероприятия" style={{width: '100%'}} > 
                 {this.props.eventType.map(typeName => 
-                  <Select.Option key = {typeName.id} value = {typeName.id}> {typeName.typeName} </Select.Option> )
-                }
+                  <Select.Option key = {typeName.id} value = {typeName.id}> {typeName.typeName} </Select.Option> )}
               </Select>)
               }
             </FormItem>
@@ -107,6 +143,11 @@ class CreateOrUpdateEvents extends React.Component<ICreateOrUpdateEventsProps> {
               </Select>
               )}
             </FormItem>
+
+            <FormItem style = {{display: 'none'}} label={L('КОСТЫЛЬ')} {...formItemLayout}>
+              {getFieldDecorator('tranzit', { initialValue:  this.getOneRecord()?.picture } )( <Input/>)}
+            </FormItem>
+
           </TabPane>
            
         </Tabs>

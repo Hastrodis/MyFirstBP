@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MyFirstBP.Migrations
 {
-    public partial class Time : Migration
+    public partial class TimeAndImage : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -791,7 +791,7 @@ namespace MyFirstBP.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Title = table.Column<string>(maxLength: 256, nullable: false),
                     Description = table.Column<string>(maxLength: 65536, nullable: true),
-                    Picture = table.Column<string>(maxLength: 65536, nullable: true),
+                    Picture = table.Column<string>(nullable: true),
                     EventStart = table.Column<DateTime>(nullable: false),
                     EventEnd = table.Column<DateTime>(nullable: false),
                     EvTypeID = table.Column<int>(nullable: false)

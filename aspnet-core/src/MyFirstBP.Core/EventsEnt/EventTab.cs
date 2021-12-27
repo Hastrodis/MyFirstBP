@@ -15,7 +15,6 @@ namespace MyFirstBP.EventsEnt
         [StringLength(64 * 1024)]
         public string Description { get; set; }
 
-        [StringLength(64 * 1024)]
         public string Picture { get; set; }
         [DataType(DataType.Time), DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:HH:mm}")]
         public DateTime EventStart { get; set; }

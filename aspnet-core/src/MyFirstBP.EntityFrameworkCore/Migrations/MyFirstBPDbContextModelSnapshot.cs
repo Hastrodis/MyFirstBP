@@ -1520,8 +1520,7 @@ namespace MyFirstBP.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Picture")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4")
-                        .HasMaxLength(65536);
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("Title")
                         .IsRequired()

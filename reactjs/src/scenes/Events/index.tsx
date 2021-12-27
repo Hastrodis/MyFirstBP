@@ -27,6 +27,7 @@ export interface IEventsState {
     skipCount: number;
     eventsId: number;
     filter: string;
+    test: string;
 }
 
 const confirm = Modal.confirm;
@@ -42,6 +43,7 @@ class Events extends AppComponentBase<IEventsProps, IEventsState> {
       skipCount: 0,
       eventsId: 0,
       filter: '',
+      test: '',
     };
   
     async componentDidMount() {
@@ -99,6 +101,7 @@ class Events extends AppComponentBase<IEventsProps, IEventsState> {
     handleCreate = () => {
       const form = this.formRef.props.form;
       form.validateFields(async (err: any, values: any) => {
+        console.log(values)
         var dateStore = [];
             for (let i = 0; i < values.dateWeek.length; i++) {
               let tranz = {
@@ -114,7 +117,7 @@ class Events extends AppComponentBase<IEventsProps, IEventsState> {
               evTypeID: values.evTypeID,
               eventEnd: values.eventEnd,
               eventStart: values.eventStart,
-              picture: values.picture,
+              picture: values.tranzit,
               dateWeeks: dateStore,
             }
             console.log(tranzitValue);
@@ -139,10 +142,20 @@ class Events extends AppComponentBase<IEventsProps, IEventsState> {
   
     saveFormRef = (formRef: any) => {
       this.formRef = formRef;
-    };
-  
+      console.log(formRef)
+    };   
     
-    
+    getTrueTime = (strTime: string) =>{
+      var date = new Date();
+      date.setTime(Date.parse(strTime));
+      var hours = date.getHours();
+      var minute = date.getMinutes();
+      const timezoneOffset = (new Date()).getTimezoneOffset();
+      console.log(timezoneOffset);
+
+      return hours+":"+minute;
+    }
+
     public render() {
       let options: GetAllDateWeek[] = [
         {"weekName": 1, "id": 0, "eventId":0, "normalizedName": "ПН"},
@@ -158,10 +171,10 @@ class Events extends AppComponentBase<IEventsProps, IEventsState> {
         { title: L('ID'), dataIndex: 'id', key: 'id', width: 50, render: (text: string) => <div>{text}</div> },
         { title: L('Название мероприятия'), dataIndex: 'title', key: 'title', width: 130, render: (text: string) => <div>{text}</div> },
         { title: L('Описание'), dataIndex: 'description', key: 'description', width: 180, render: (text: string) => <div>{text}</div> },
-        { title: L('Изображение'), dataIndex: 'picture', key: 'picture', width: 150, render: (text: string) => <div>{text}</div> },
+        { title: L('Изображение'), dataIndex: 'picture', key: 'picture', width: 150, render: (text: string) => <div><img src={text} height={200} width={200} /></div> },
         { title: L('Тип события'), dataIndex: 'typeName', key: 'typeName', width: 100, render: (text: string) =>  <div>{text}</div>},
-        { title: L('Время начала'), dataIndex: 'eventStart', key: 'eventStart', width: 80, render: (text: string) =>  <div>{text}</div>},
-        { title: L('Время окончания'), dataIndex: 'eventEnd', key: 'eventEnd', width: 80, render: (text: string) =>  <div>{text}</div>},
+        { title: L('Время начала'), dataIndex: 'eventStart', key: 'eventStart', width: 80, render: (text: string) =>  <div>{this.getTrueTime(text)}</div>},
+        { title: L('Время окончания'), dataIndex: 'eventEnd', key: 'eventEnd', width: 80, render: (text: string) =>  <div>{this.getTrueTime(text)}</div>},
         { title: L('Дни недели'), dataIndex: 'dateWeeks', key: 'dateWeeks', width: 80, render: (text: DateWeekModel[]) =>  <div>{
           text.map(
             date =>
@@ -260,5 +273,3 @@ class Events extends AppComponentBase<IEventsProps, IEventsState> {
 }
 
 export default Events;
-
-/* */
